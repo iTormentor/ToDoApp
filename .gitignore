@@ -1,0 +1,9 @@
+.idea
+<<<<<<< HEAD
+target
+TODO-APP.iml
+=======
+TODO-List.iml
+target
+javafx-maven-archetypes
+>>>>>>> 84a92a926fca834b4df9e20fcc42f948c42d649e
