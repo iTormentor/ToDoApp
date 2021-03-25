@@ -1,44 +1,3 @@
-<<<<<<< HEAD
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>no.ntnu.idata1002</groupId>
-    <artifactId>TODO-APP</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>15.0.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>15.0.1</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <release>11</release>
-                </configuration>
-            </plugin>
-
-            <plugin>
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -49,7 +8,7 @@
     GroupID og artifactID til ditt prosjekt. Husk å endre dette til riktige verdier for ditt prosjekt!!
     -->
     <groupId>no.ntnu.idata1002</groupId>
-    <artifactId>TODO-List</artifactId>
+    <artifactId>TODO-APP</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -71,21 +30,11 @@
     <build>
         <plugins>
             <plugin>
->>>>>>> 84a92a926fca834b4df9e20fcc42f948c42d649e
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-<<<<<<< HEAD
-                    <mainClass>no.ntnu.idata1002.App</mainClass>
-                </configuration>
-            </plugin>
-
-        </plugins>
-
-    </build>
-=======
-                    <mainClass>idata1002.todolist.SimpleClient</mainClass>
+                    <mainClass>idata2001.javafxtest.HelloWorld</mainClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -104,15 +53,6 @@
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.7.0</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
->>>>>>> 84a92a926fca834b4df9e20fcc42f948c42d649e
 </project>
