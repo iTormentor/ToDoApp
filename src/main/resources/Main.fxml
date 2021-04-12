@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="41.0" layoutY="81.0" prefHeight="268.0" prefWidth="518.0">
+         <children>
+            <TableView prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn prefWidth="158.20000457763672" text="TODO" />
+                <TableColumn prefWidth="166.60000610351562" text="DOING" />
+                  <TableColumn prefWidth="194.00003051757812" text="DONE" />
+              </columns>
+            </TableView>
+            <Button mnemonicParsing="false" text="Add task" />
+         </children>
+      </VBox>
+      <HBox layoutX="41.0" layoutY="49.0" prefHeight="32.0" prefWidth="240.0">
+         <children>
+            <ComboBox prefWidth="150.0" promptText="Projects" />
+            <Button mnemonicParsing="false" text="New project" />
+         </children>
+      </HBox>
+      <Label layoutX="203.0" layoutY="7.0" text="TODO-APP">
+         <font>
+            <Font name="Baskerville Old Face" size="32.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
