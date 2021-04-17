@@ -10,7 +10,7 @@ import java.util.List;
 public class Project {
 
     private String projectName;
-    private List<Task> taskList;
+    private final List<Task> taskList;
     private boolean started = false;
     private boolean finished = false;
 
@@ -85,6 +85,15 @@ public class Project {
      */
     public List<Task> getTaskListTask(){
         return this.taskList;
+    }
+
+    /**
+     * Adds a task to ArrayList taskList
+     *
+     * @param task The Task object to be added
+     */
+    public void addTask(Task task){
+        taskList.add(task);
     }
 
     /**
