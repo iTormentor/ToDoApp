@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<DialogPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="360.0"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.ntnu.idata1002.TaskDialog">
+   <content>
+      <AnchorPane prefHeight="307.0" prefWidth="360.0">
+         <children>
+            <TextField fx:id="nameField" layoutX="161.0" layoutY="62.0" promptText="Name" />
+            <TextArea fx:id="descriptionField" layoutX="161.0" layoutY="103.0" prefHeight="54.0" prefWidth="150.0" promptText="Description" />
+            <TextField fx:id="priorityField" layoutX="161.0" layoutY="173.0" promptText="Priority" />
+            <TextField fx:id="categoryField" layoutX="161.0" layoutY="212.0" promptText="TODO/DOING/DONE" />
+            <Label layoutX="76.0" layoutY="66.0" text="Name" />
+            <Label layoutX="76.0" layoutY="122.0" text="Description" />
+            <Label layoutX="76.0" layoutY="177.0" text="Priority" />
+            <Label layoutX="76.0" layoutY="216.0" text="Category" />
+            <Button layoutX="294.0" layoutY="278.0" mnemonicParsing="false" text="OK" />
+            <Button layoutX="236.0" layoutY="278.0" mnemonicParsing="false" text="Close" />
+            <Label layoutX="147.0" layoutY="14.0" text="Task">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </content>
+</DialogPane>

@@ -12,6 +12,7 @@ public class Task {
     private String category; //Category of the task
     private String taskName; // The name of task
     private String description; //Description of task
+    private String priority;
     private int timeLeft; // How much time left to do task
     private boolean done;
 
@@ -25,11 +26,12 @@ public class Task {
      * @param description a more detailed description of the task
      * @param timeLeft how much time left to do task
      */
-    public Task(String category,String taskName, String description, int timeLeft) {
+    public Task(String category,String taskName, String description, int timeLeft,String priority) {
         this.category = category;
         this.taskName = taskName;
         this.description = description;
         this.timeLeft = timeLeft;
+        this.priority = priority;
         this.done = false;
     }
 
@@ -72,6 +74,14 @@ public class Task {
     }
 
     /**
+     * Returns the priority of class.
+     *
+     * @return the category
+     */
+
+    public String getPriority() { return priority;}
+
+    /**
      * Returns timeleft to finish the task
      *
      * @return timeleft to finish the task
@@ -102,6 +112,13 @@ public class Task {
             throw new IllegalArgumentException("Parameter of task name cannot be null");
         }
         this.taskName = taskName;
+    }
+
+    private void setPriority(String priority) {
+        if (null == priority) {
+            throw new IllegalArgumentException("Parameter of task name cannot be null");
+        }
+        this.priority = priority;
     }
 
     /**
