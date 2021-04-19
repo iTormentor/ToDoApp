@@ -12,9 +12,11 @@ public class SubTask extends Task{
      * @param category the category of task
      * @param taskName the name of task
      * @param description the description of task
-     * @param timeLeft timeleft to be finished
+     * @param year year of the deadline
+     * @param month month of the deadline
+     * @param day day of the month, of the deadline
      */
-    public SubTask(String category, String taskName, String description, int timeLeft) {
-        super(category, taskName, description, timeLeft);
+    public SubTask(String category, String taskName, String description, int year, int month, int day) {
+        super(category, taskName, description, year, month, day);
     }
 }

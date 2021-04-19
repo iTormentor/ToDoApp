@@ -1,6 +1,7 @@
 package no.ntnu.idata1002;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represent a task to be executed. The task has a name, timeleft
@@ -9,10 +10,10 @@ import java.time.LocalDate;
 
 public class Task {
 
-    private String category; //Category of the task
+    //private String category; //Category of the task  ---Category moved to Project
     private String taskName; // The name of task
     private String description; //Description of task
-    private int timeLeft; // How much time left to do task
+    private LocalDate deadLine; // How much time left to do task
     private boolean done;
 
 
@@ -23,13 +24,15 @@ public class Task {
      * @param category task category
      * @param taskName   the name of the task
      * @param description a more detailed description of the task
-     * @param timeLeft how much time left to do task
+     * @param year year of the deadline
+     * @param month month of the deadline
+     * @param day day of the month, of the deadline
      */
-    public Task(String category,String taskName, String description, int timeLeft) {
-        this.category = category;
+    public Task(String category,String taskName, String description, int year, int month, int day) {
+        //this.category = category; ---Category moved to Project
         this.taskName = taskName;
         this.description = description;
-        this.timeLeft = timeLeft;
+        this.deadLine = LocalDate.of(year, month, day);
         this.done = false;
     }
 
@@ -38,10 +41,11 @@ public class Task {
      * Sets the fields to empty strings to avoid NullPointerException.
      */
     public Task() {
-        this.setCategory("");
+        //this.setCategory(""); -- Category moved to Project
         this.setTaskName("");
         this.setDescription("");
-        this.setTimeLeft("");
+        this.deadLine = LocalDate.now();
+        this.done = false;
 
     }
 
@@ -62,34 +66,36 @@ public class Task {
         return description;
     }
 
-    /**
+/**
      * Returns the category of class.
      *
      * @return the category
      */
-    public String getCategory() {
+    /*public String getCategory() {
         return category;
+    }*/ // -- Category moved to Project
+
+    /**
+     * Returns days left until deadline
+     *
+     * @return The amount of days left to finish the task
+     */
+    public long getTimeLeft() {
+        return deadLine.until(LocalDate.now(), ChronoUnit.DAYS);
     }
 
     /**
-     * Returns timeleft to finish the task
+     * Sets new deadline for a task
      *
-     * @return timeleft to finish the task
+     * @param year year of the deadline
+     * @param month month of the deadline
+     * @param day day of the month, of the deadline
      */
-    public int getTimeLeft() {
-        return timeLeft;
-    }
-
-    /**
-     * Sets timeleft
-     *
-     *  @param s timeleft
-     */
-    private void setTimeLeft(String s) {
-        if(timeLeft == 0){
-            throw new IllegalArgumentException("Parameter of timeleft cannot be null");
+    private void setDeadLine(int year, int month, int day) {
+        if(year == 0 || month == 0 || day == 0){
+            throw new IllegalArgumentException("Parameter of deadLine cannot be null");
         }
-        this.timeLeft = timeLeft;
+        this.deadLine = LocalDate.of(year, month, day);
     }
 
     /**
@@ -109,12 +115,12 @@ public class Task {
      *
      * @param category the summary to be set
      */
-    public void setCategory(String category) {
+    /*public void setCategory(String category) {
         if (null == category) {
             throw new IllegalArgumentException("Parameter category cannot be null");
         }
         this.category = category;
-    }
+    }*/
 
 
     /**
@@ -141,10 +147,9 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "category=" + category +
                 ", taskName='" + taskName + '\'' +
                 ", description='" + description + '\'' +
-                ", timeLeft=" + timeLeft +
+                ", timeLeft=" + getTimeLeft() + "days" +
                 ", done=" + done +
                 '}';
     }
