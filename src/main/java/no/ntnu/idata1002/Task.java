@@ -41,9 +41,10 @@ public class Task {
      */
     public Task() {
         this.setCategory("");
-        this.setTaskName("");
+        this.setName("");
         this.setDescription("");
-        this.setTimeLeft("");
+        this.setTimeLeft(0);
+        this.setPriority("");
 
     }
 
@@ -90,35 +91,46 @@ public class Task {
         return timeLeft;
     }
 
-    /**
-     * Sets timeleft
-     *
-     *  @param s timeleft
-     */
-    private void setTimeLeft(String s) {
-        if(timeLeft == 0){
-            throw new IllegalArgumentException("Parameter of timeleft cannot be null");
-        }
-        this.timeLeft = timeLeft;
-    }
+
+
+//    /**
+//     * Sets the category.
+//     *
+//     * @param timeLeft the summary to be set
+//     */
+//    public void setTimeLeft(String timeLeft) {
+//        if (null == timeLeft) {
+//            throw new IllegalArgumentException("Parameter category cannot be null");
+//        }
+//        this.timeLeft = Integer.parseInt(timeLeft);
+//    }
+
+    public void setTimeLeft(int timeLeft) {this.timeLeft=timeLeft;}
+
 
     /**
-     * Sets the task name
+     * Sets the priority.
      *
-     * @param taskName the name of task
+     * @param name the summary to be set
      */
-    private void setTaskName(String taskName) {
-        if (null == taskName) {
-            throw new IllegalArgumentException("Parameter of task name cannot be null");
+    public void setName(String name) {
+        if (null == name) {
+            throw new IllegalArgumentException("Parameter category cannot be null");
         }
-        this.taskName = taskName;
+        this.taskName = category;
     }
 
-    private void setPriority(String priority) {
+
+    /**
+     * Sets the priority.
+     *
+     * @param priority the summary to be set
+     */
+    public void setPriority(String priority) {
         if (null == priority) {
-            throw new IllegalArgumentException("Parameter of task name cannot be null");
+            throw new IllegalArgumentException("Parameter category cannot be null");
         }
-        this.priority = priority;
+        this.priority = category;
     }
 
     /**
