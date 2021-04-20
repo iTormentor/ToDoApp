@@ -146,42 +146,10 @@ public class TaskDialog extends Dialog<Task> {
         }
     }
     return result;
-    }
+        }
     );
     }
 
-//    //TODO:Catch exception
-//    private void createStuff() throws IOException {
-//        //Add cancel and OK button
-//        getDialogPanes();
-//        getDialogPane().getButtonTypes().addAll(ButtonType.OK,ButtonType.CLOSE);
-//
-//
-//
-//        //Add data if editable
-//        if ((mode == Mode.EDIT) || (mode == Mode.VIEW)) {
-//
-//
-//        }
-//    }
-//
-//    private void getDialogPanes() throws IOException {
-//
-//        final FXMLLoader loader = new FXMLLoader(getClass().getResource("TaskDialog.fxml"));
-// //           getDialogPane(root);
-//        Parent root = loader.load();
-//        Scene scene = new Scene(root,250,150);
-//        Stage stage = new Stage();
-//        stage.setScene(scene);
-//        stage.showAndWait();
-//
-////            primaryStage.setTitle("Poker Game");
-////            primaryStage.setScene(new Scene(root, 600, 300));
-////            primaryStage.show();
-//
-//
-//        }
-//    }
 }
 
 
