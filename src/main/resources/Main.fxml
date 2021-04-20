@@ -4,19 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="41.0" layoutY="81.0" prefHeight="268.0" prefWidth="518.0">
+      <VBox layoutX="41.0" layoutY="81.0" prefHeight="200.0" prefWidth="518.0">
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="466.0">
               <columns>
-                <TableColumn prefWidth="158.20000457763672" text="TODO" />
-                <TableColumn prefWidth="166.60000610351562" text="DOING" />
-                  <TableColumn prefWidth="194.00003051757812" text="DONE" />
+                <TableColumn prefWidth="155.99999237060547" text="TODO" />
+                  <TableColumn prefWidth="157.39999389648438" text="DOING" />
+                  <TableColumn prefWidth="153.0" text="DONE" />
               </columns>
             </TableView>
-            <Button mnemonicParsing="false" text="Add task" />
          </children>
       </VBox>
       <HBox layoutX="41.0" layoutY="49.0" prefHeight="32.0" prefWidth="240.0">
@@ -30,5 +28,10 @@
             <Font name="Baskerville Old Face" size="32.0" />
          </font>
       </Label>
+      <Button layoutX="41.0" layoutY="281.0" mnemonicParsing="false" text="Add task" />
+      <Button layoutX="184.0" layoutY="281.0" mnemonicParsing="false" text="Edit" />
+      <Button layoutX="109.0" layoutY="281.0" mnemonicParsing="false" text="Remove" />
+      <Button layoutX="229.0" layoutY="281.0" mnemonicParsing="false" text="View" />
+      <Button layoutX="418.0" layoutY="281.0" mnemonicParsing="false" text="Delete project" textFill="#e50a0a" />
    </children>
 </AnchorPane>
