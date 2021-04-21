@@ -17,7 +17,7 @@
             <Button mnemonicParsing="false" onAction="#doAddTask" text="New task" />
             <Button mnemonicParsing="false" onAction="#doViewDetails" text="Edit task" />
             <Button mnemonicParsing="false" text="View task" />
-            <Button mnemonicParsing="false" text="Remove task" />
+            <Button mnemonicParsing="false" onAction="#doRemoveTask" text="Remove task" />
             <Button mnemonicParsing="false" text="Delete project" />
          </children>
       </HBox>

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Represent a task to be executed. The task has a name, timeleft
+ * Represent a task to be executed. The task has a name, timeLeft
  * a description and a status indicating if done or not.
  */
 

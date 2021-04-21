@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -28,6 +29,8 @@ public class MainController implements Initializable {
     private ObservableList doingTasksObsList=FXCollections.observableArrayList();
     private ObservableList doneTasksObsList =FXCollections.observableArrayList();
 
+
+
     @FXML
     private ListView<Task> todoListView = new ListView<>();
 
@@ -40,28 +43,20 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
          //Create the business logic by creating an instance of
          //LiteratureRegister and filling it with dummy data.
         this.issueBoard = new IssueBoard("My TODO-APP");
         this.todoTasksObsList.addAll(issueBoard.getTodoTasks());
         this.doingTasksObsList.addAll(issueBoard.getOngoingTasks());
         this.doneTasksObsList.addAll(issueBoard.getFinishedTasks());
-        issueBoard.addTask(new Task("Vaske", "Rommet", "Høy", 1));
+        issueBoard.addTask(new Task("Room", "", "Medium", 1));
 
         this.todoTasksObsList = FXCollections.observableArrayList(this.issueBoard.getTodoTasks());
         this.doingTasksObsList = FXCollections.observableArrayList(this.issueBoard.getOngoingTasks());
         this.doneTasksObsList = FXCollections.observableArrayList(this.issueBoard.getFinishedTasks());
 
-
-        this.todoListView.getItems().addAll(this.todoTasksObsList);
-        this.doingListView.getItems().addAll(this.doingTasksObsList);
-        this.doneListView.getItems().addAll(this.doneTasksObsList);
-
-
-//        // Populate the TableView by data from the literature register
-//        this.observableLitRegister =
-//                FXCollections.observableArrayList(this.literatureRegister.getLiteratureList());
-//        this.literatureTableView.setItems(this.observableLitRegister);
+        updateLists();
     }
 
     public void doViewDetails(ActionEvent actionEvent) {
@@ -87,20 +82,39 @@ public class MainController implements Initializable {
         }
     }
 
+
+    //TODO Check if If-sentence is correct. Add remove method where appropriate.
     @FXML
     public void doRemoveTask(ActionEvent actionEvent) {
-        Task highlightedToDoTask = this.todoListView.getSelectionModel().getSelectedItem();
-        if (highlightedToDoTask == null) {
-            Task highlightedTask1 = this.doingListView.getSelectionModel().getSelectedItem();
-            if (highlightedTask1 == null) {
-                Task highlightedFinishedTask = this.doneListView.getSelectionModel().getSelectedItem();
-                if (highlightedFinishedTask == null) {
+        Task highlightedTask = this.todoListView.getSelectionModel().getSelectedItem();
+        if (highlightedTask == null) {
+            highlightedTask = this.doingListView.getSelectionModel().getSelectedItem();
+            if (highlightedTask == null) {
+                highlightedTask = this.doneListView.getSelectionModel().getSelectedItem();
+                if (highlightedTask == null) {
                     showPleaseSelectItemDialog();
                 }
             }
         }
+        if(!(highlightedTask==null)) {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Delete task");
+            alert.setHeaderText("This will completely remove the chosen task");
+            alert.setContentText("Are you ok with this?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                issueBoard.removeTask(highlightedTask);
+                updateLists();
+            }
+
+
+        }
 
     }
+
+
 
     private void updateLists() {
         this.todoTasksObsList.setAll(this.issueBoard.getTodoTasks());
@@ -112,7 +126,6 @@ public class MainController implements Initializable {
         this.todoListView.getItems().addAll(this.todoTasksObsList);
         this.doingListView.getItems().addAll(this.doingTasksObsList);
         this.doneListView.getItems().addAll(this.doneTasksObsList);
-
     }
 
 
@@ -129,5 +142,6 @@ public class MainController implements Initializable {
 
         alert.showAndWait();
     }
+
 }
 
