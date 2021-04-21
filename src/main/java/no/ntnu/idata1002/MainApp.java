@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class App extends Application {
+public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
         Parent root = null;
-        try {root = FXMLLoader.load(getClass().getClassLoader().getResource("Main.fxml"));
+        try {root = FXMLLoader.load(getClass().getClassLoader().getResource("Test.fxml"));
             primaryStage.setTitle("Poker Game");
             primaryStage.setScene(new Scene(root, 600, 300));
             primaryStage.show();

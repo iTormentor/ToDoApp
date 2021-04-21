@@ -5,6 +5,9 @@ package no.ntnu.idata1002;
  */
 public class SubTask extends Task{
 
+    public SubTask(String taskName, String description, String priority, int timeLeft) {
+        super(taskName, description, priority, timeLeft);
+    }
 
     /**
      * Contructor for Sub Task
@@ -16,7 +19,7 @@ public class SubTask extends Task{
      * @param month month of the deadline
      * @param day day of the month, of the deadline
      */
-    public SubTask(String category, String taskName, String description, int year, int month, int day) {
-        super(category, taskName, description, year, month, day);
-    }
+//    public SubTask(String category, String taskName, String description, int year, int month, int day) {
+//        super(category, taskName, description, year, month, day);
+//    }
 }
