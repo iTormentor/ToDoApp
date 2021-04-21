@@ -23,7 +23,7 @@ public class MainApp extends Application {
         Parent root = null;
         try {root = FXMLLoader.load(getClass().getClassLoader().getResource("Test.fxml"));
             primaryStage.setTitle("Poker Game");
-            primaryStage.setScene(new Scene(root, 600, 300));
+            primaryStage.setScene(new Scene(root, 700, 400));
             primaryStage.show();
 
         } catch (IOException e) {
