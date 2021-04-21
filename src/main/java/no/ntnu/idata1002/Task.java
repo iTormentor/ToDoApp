@@ -160,15 +160,15 @@ public class Task {
         return this.done;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Task{" +
-//                ", taskName='" + taskName + '\'' +
-//                ", description='" + description + '\'' +
-//                ", timeLeft=" + getTimeLeft() + "days" +
-//                ", done=" + done +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Task{" +
+                ", taskName='" + taskName + '\'' +
+                ", description='" + description + '\'' +
+                ", timeLeft=" + getTimeLeft() + "days" +
+                ", done=" + done +
+                '}';
+    }
 
     public String getPriority() {
         return this.priority;
