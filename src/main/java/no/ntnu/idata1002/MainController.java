@@ -46,8 +46,9 @@ public class MainController implements Initializable {
         this.todoTasksObsList.addAll(issueBoard.getTodoTasks());
         this.doingTasksObsList.addAll(issueBoard.getOngoingTasks());
         this.doneTasksObsList.addAll(issueBoard.getFinishedTasks());
+        issueBoard.addTask(new Task("Vaske", "Rommet", "Høy", 1));
 
-       this.todoTasksObsList = FXCollections.observableArrayList(this.issueBoard.getTodoTasks());
+        this.todoTasksObsList = FXCollections.observableArrayList(this.issueBoard.getTodoTasks());
         this.doingTasksObsList = FXCollections.observableArrayList(this.issueBoard.getOngoingTasks());
         this.doneTasksObsList = FXCollections.observableArrayList(this.issueBoard.getFinishedTasks());
 
@@ -105,9 +106,13 @@ public class MainController implements Initializable {
         this.todoTasksObsList.setAll(this.issueBoard.getTodoTasks());
         this.doingTasksObsList.setAll(this.issueBoard.getOngoingTasks());
         this.doneTasksObsList.setAll(this.issueBoard.getFinishedTasks());
-        this.todoListView.refresh();
-        this.doingListView.refresh();
-        this.doneListView.refresh();
+        this.todoListView.getItems().clear();
+        this.doingListView.getItems().clear();
+        this.doneListView.getItems().clear();
+        this.todoListView.getItems().addAll(this.todoTasksObsList);
+        this.doingListView.getItems().addAll(this.doingTasksObsList);
+        this.doneListView.getItems().addAll(this.doneTasksObsList);
+
     }
 
 
