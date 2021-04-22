@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -43,19 +44,22 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+         //Create the business logic by creating an instance of
+         //LiteratureRegister and filling it with dummy data.
         this.issueBoard = new IssueBoard("My TODO-APP");
-        this.issueBoard.addTask(new Task("asd","asda","asda",1));
+        this.todoTasksObsList.addAll(issueBoard.getTodoTasks());
+        this.doingTasksObsList.addAll(issueBoard.getOngoingTasks());
+        this.doneTasksObsList.addAll(issueBoard.getFinishedTasks());
+        issueBoard.addTask(new Task("Room", "", "Medium", 1));
 
-        todoTasksObsList.addAll(this.issueBoard.getTodoTasks());
-        doingTasksObsList.addAll(this.issueBoard.getOngoingTasks());
-        doneTasksObsList.addAll(this.issueBoard.getFinishedTasks());
+        this.todoTasksObsList = FXCollections.observableArrayList(this.issueBoard.getTodoTasks());
+        this.doingTasksObsList = FXCollections.observableArrayList(this.issueBoard.getOngoingTasks());
+        this.doneTasksObsList = FXCollections.observableArrayList(this.issueBoard.getFinishedTasks());
 
-        todoListView.getItems().addAll(todoTasksObsList);
-        doingListView.getItems().addAll(doingTasksObsList);
-        doneListView.getItems().addAll(doneTasksObsList);
         updateLists();
     }
 
+    @FXML
     public void doViewDetails(ActionEvent actionEvent) {
         Task highlightedTask =
                 this.todoListView.getSelectionModel().getSelectedItem();
@@ -79,58 +83,99 @@ public class MainController implements Initializable {
         }
     }
 
-
-    //TODO Check if If-sentence is correct. Add remove method where appropriate.
+    /**
+    * Removes selected task from either lists. If no task is highlighted show dialog.
+     */
     @FXML
     public void doRemoveTask(ActionEvent actionEvent) {
-        Task highlightedToDoTask = this.todoListView.getSelectionModel().getSelectedItem();
-        if (highlightedToDoTask == null) {
-            Task highlightedTask1 = this.doingListView.getSelectionModel().getSelectedItem();
-            if (highlightedTask1 == null) {
-                Task highlightedFinishedTask = this.doneListView.getSelectionModel().getSelectedItem();
-                if (highlightedFinishedTask == null) {
+        Task highlightedTask = this.todoListView.getSelectionModel().getSelectedItem();
+        if (highlightedTask == null) {
+            highlightedTask = this.doingListView.getSelectionModel().getSelectedItem();
+            if (highlightedTask == null) {
+                highlightedTask = this.doneListView.getSelectionModel().getSelectedItem();
+                if (highlightedTask == null) {
                     showPleaseSelectItemDialog();
                 }
             }
+        }
+        if(!(highlightedTask==null)) {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Delete task");
+            alert.setHeaderText("This will completely remove the chosen task");
+            alert.setContentText("Are you ok with this?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                issueBoard.removeTask(highlightedTask);
+                updateLists();
+            }
+
+
         }
 
     }
 
     /**
+     * Move task from one list to the other.
+     */
+    //TODO: Create method. 
+    public void doMoveTask() {
+        Task highlightedTask = this.todoListView.getSelectionModel().getSelectedItem();
+        if (highlightedTask == null) {
+            highlightedTask = this.doingListView.getSelectionModel().getSelectedItem();
+            if (highlightedTask == null) {
+                highlightedTask = this.doneListView.getSelectionModel().getSelectedItem();
+                if (highlightedTask == null) {
+                    showPleaseSelectItemDialog();
+
+                }
+            }
+        }
+        if (!(highlightedTask == null)) {
+            i
+        }
+    }
+
+
+
+
+    /**
      * Edit the selected task.
      *
-     * @param actionEvent the event triggering the action
-     *                    TODO: Lag edit task methode. Under er eksempelkode som Arne har laget. Den vil være lik den, men forskjellen er at vi har 3 lister.
-     *
+     * @param actionEvent the event triggering the action*
      */
 
     public void doEditTask(ActionEvent actionEvent) {
 
+        Task highlightedTask = this.todoListView.getSelectionModel().getSelectedItem();
+        if (highlightedTask == null) {
+            highlightedTask = this.doingListView.getSelectionModel().getSelectedItem();
+            if (highlightedTask == null) {
+                highlightedTask = this.doneListView.getSelectionModel().getSelectedItem();
+                if (highlightedTask == null) {
+                    showPleaseSelectItemDialog();
+
+                }
+            }
+        }
+        if (!(highlightedTask == null)) {
+            TaskDialog taskDialog = new TaskDialog(highlightedTask,true);
+            taskDialog.showAndWait();
+
+        }
     }
-//    public void editLiterature(ActionEvent actionEvent) {
-//        Literature selectedLiterature =
-//                this.literatureTableView.getSelectionModel().getSelectedItem();
-//
-//        if (selectedLiterature == null) {
-//            showPleaseSelectItemDialog();
-//        } else {
-//            if (selectedLiterature instanceof Newspaper) {
-//                Newspaper selectedNewspaper = (Newspaper) selectedLiterature;
-//                NewspaperDetailsDialog npDialog = new NewspaperDetailsDialog(selectedNewspaper, true);
-//                npDialog.showAndWait();
-//
-//                this.updateObservableLitReg();
-//            }
-//        }
-//    }
 
     private void updateLists() {
         this.todoTasksObsList.setAll(this.issueBoard.getTodoTasks());
         this.doingTasksObsList.setAll(this.issueBoard.getOngoingTasks());
         this.doneTasksObsList.setAll(this.issueBoard.getFinishedTasks());
-        this.todoListView.refresh();
-        this.doingListView.refresh();
-        this.doneListView.refresh();
+        this.todoListView.getItems().clear();
+        this.doingListView.getItems().clear();
+        this.doneListView.getItems().clear();
+        this.todoListView.getItems().addAll(this.todoTasksObsList);
+        this.doingListView.getItems().addAll(this.doingTasksObsList);
+        this.doneListView.getItems().addAll(this.doneTasksObsList);
     }
 
 
@@ -147,5 +192,6 @@ public class MainController implements Initializable {
 
         alert.showAndWait();
     }
+
 }
 
