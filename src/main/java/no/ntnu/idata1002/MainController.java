@@ -96,6 +96,34 @@ public class MainController implements Initializable {
 
     }
 
+    /**
+     * Edit the selected task.
+     *
+     * @param actionEvent the event triggering the action
+     *                    TODO: Lag edit task methode. Under er eksempelkode som Arne har laget. Den vil være lik den, men forskjellen er at vi har 3 lister.
+     *
+     */
+
+    public void doEditTask(ActionEvent actionEvent) {
+
+    }
+//    public void editLiterature(ActionEvent actionEvent) {
+//        Literature selectedLiterature =
+//                this.literatureTableView.getSelectionModel().getSelectedItem();
+//
+//        if (selectedLiterature == null) {
+//            showPleaseSelectItemDialog();
+//        } else {
+//            if (selectedLiterature instanceof Newspaper) {
+//                Newspaper selectedNewspaper = (Newspaper) selectedLiterature;
+//                NewspaperDetailsDialog npDialog = new NewspaperDetailsDialog(selectedNewspaper, true);
+//                npDialog.showAndWait();
+//
+//                this.updateObservableLitReg();
+//            }
+//        }
+//    }
+
     private void updateLists() {
         this.todoTasksObsList.setAll(this.issueBoard.getTodoTasks());
         this.doingTasksObsList.setAll(this.issueBoard.getOngoingTasks());
