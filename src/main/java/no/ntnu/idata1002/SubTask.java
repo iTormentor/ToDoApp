@@ -5,8 +5,8 @@ package no.ntnu.idata1002;
  */
 public class SubTask extends Task{
 
-    public SubTask(String taskName, String description, String priority, int timeLeft) {
-        super(taskName, description, priority, timeLeft);
+    public SubTask(String taskName, String description, String priority,int year, int month, int day) {
+        super(taskName, description, priority, year,month,day);
     }
 
     /**

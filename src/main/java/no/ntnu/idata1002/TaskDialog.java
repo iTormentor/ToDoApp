@@ -161,8 +161,8 @@ public class TaskDialog extends Dialog<Task> {
         //grid.add(categoryField, 1, 3);
         grid.add(new Label("Time left:"),0,3);
         grid.add(timeLeftField,1,3);
-        grid.add(new Label("Deadline:"),0,3);
-        grid.addRow(3,yearField,monthField,dayField);
+        grid.add(new Label("Deadline:"),0,4);
+        grid.addRow(5,yearField,monthField,dayField);
 
 
         //Add the grid to the dialog.
