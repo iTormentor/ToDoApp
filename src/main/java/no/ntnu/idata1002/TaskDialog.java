@@ -12,6 +12,7 @@ import no.ntnu.idata1002.Task;
 import no.ntnu.idata1002.Project;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class TaskDialog extends Dialog<Task> {
 
@@ -36,7 +37,7 @@ public class TaskDialog extends Dialog<Task> {
 
     public TaskDialog(Task task,boolean edit) {
         super();
-        if (edit) {
+        if (edit == true) {
             this.mode = Mode.EDIT;
         } else {
             this.mode = Mode.VIEW;
@@ -59,47 +60,92 @@ public class TaskDialog extends Dialog<Task> {
 
         //Create the grid base.
         GridPane grid = new GridPane();
-        grid.setHgap(5);
-        grid.setVgap(5);
+        grid.setHgap(10);
+        grid.setVgap(10);
         grid.setPadding(new Insets(20,150,10,10));
 
         TextField nameField = new TextField();
         nameField.setPromptText("Name");
 
-        TextField timeLeftField = new TextField();
-        timeLeftField.setPromptText("Time left");
-        //This prevents the user from putting in characters in the int field.
-        timeLeftField.textProperty().addListener((observable, oldValue, newValue) -> {
+        TextArea descriptionField = new TextArea();
+        descriptionField.setPromptText("Description");
+
+        TextField yearField = new TextField();
+        yearField.setPromptText("Year");
+        yearField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 if (newValue.length() > 0) {
                     Integer.parseInt(newValue);
                 }
             } catch (NumberFormatException e) {
-
-                timeLeftField.setText(oldValue);
+                // The user have entered a non-integer character, hence just keep the
+                // oldValue and ignore the newValue.
+                yearField.setText(oldValue);
             }
         });
 
-        TextArea descriptionField = new TextArea();
-        descriptionField.setPromptText("Description");
+        TextField monthField = new TextField();
+        monthField.setPromptText("Month");
+        monthField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                if (newValue.length() > 0) {
+                    Integer.parseInt(newValue);
+                }
+            } catch (NumberFormatException e) {
+                // The user have entered a non-integer character, hence just keep the
+                // oldValue and ignore the newValue.
+                monthField.setText(oldValue);
+            }
+        });
+
+        TextField dayField = new TextField();
+        dayField.setPromptText("Day");
+        dayField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                if (newValue.length() > 0) {
+                    Integer.parseInt(newValue);
+                }
+            } catch (NumberFormatException e) {
+                // The user have entered a non-integer character, hence just keep the
+                // oldValue and ignore the newValue.
+                dayField.setText(oldValue);
+            }
+        });
+
+        TextField timeLeftField = new TextField();
+        timeLeftField.setEditable(false);
+        timeLeftField.setPromptText("Time left until deadline:");
+
+        TextField deadLine = new TextField();
+        deadLine.setPromptText("Deadline: ");
+
+
+
 
         TextField priorityField = new TextField();
         priorityField.setPromptText("Priority");
 
-        //TODO: Throw exception if fields are empty.
         //If edit button or view is clicked, set fields to current task values.
         if ((mode == Mode.EDIT) || mode == Mode.VIEW) {
             nameField.setText(existingTask.getTaskName());
             descriptionField.setText(existingTask.getDescription());
+            //categoryField.setText(existingTask.getCategory());
             priorityField.setText(existingTask.getPriority());
-            timeLeftField.setText(Integer.toString(existingTask.getTimeLeft()));
+//            timeLeftField.setText(Integer.toString(existingTask.getTimeLeft()));
+            yearField.setText(Integer.toString(existingTask.getYear()));
+            monthField.setText(Integer.toString(existingTask.getMonth()));
+            dayField.setText(Integer.toString(existingTask.getDay()));
+
+
 
             //Make fields uneditable if in view only mode.
             if (mode == Mode.VIEW) {
                 nameField.setEditable(false);
                 descriptionField.setEditable(false);
                 priorityField.setEditable(false);
-                timeLeftField.setEditable(false);
+                yearField.setEditable(false);
+                monthField.setEditable(false);
+                dayField.setEditable(false);
             }
 
         }
@@ -107,15 +153,17 @@ public class TaskDialog extends Dialog<Task> {
         //Put the values into grid.
         grid.add(new Label("Name:"), 0, 0);
         grid.add(nameField, 1, 0);
-
         grid.add(new Label("Description:"), 0, 1);
         grid.add(descriptionField, 1, 1);
-
         grid.add(new Label("Priority:"), 0, 2);
         grid.add(priorityField, 1, 2);
-
+        //grid.add(new Label("Category"), 0, 3);
+        //grid.add(categoryField, 1, 3);
         grid.add(new Label("Time left:"),0,3);
         grid.add(timeLeftField,1,3);
+        grid.add(new Label("Deadline:"),0,3);
+        grid.addRow(3,yearField,monthField,dayField);
+
 
         //Add the grid to the dialog.
         getDialogPane().setContent(grid);
@@ -124,16 +172,19 @@ public class TaskDialog extends Dialog<Task> {
                     Task result = null;
                     if (button == ButtonType.OK) {
                         int timeLeft = Integer.parseInt(timeLeftField.getText());
-                        //TODO: Throw exception if fields are empty.
+
                         if (mode == Mode.NEW) {
                             result = new Task(nameField.getText(),descriptionField.getText(),priorityField.getText(),
-                                    timeLeft);
+                                    Integer.parseInt(yearField.getText()),Integer.parseInt(monthField.getText()),
+                                    Integer.parseInt(dayField.getText()));
 
                         } else if (mode == Mode.EDIT){
                             existingTask.setDescription(descriptionField.getText());
                             existingTask.setTaskName(nameField.getText());
                             existingTask.setTimeLeft(timeLeft);
                             existingTask.setPriority(priorityField.getText());
+                            existingTask.setDeadLine(Integer.parseInt(yearField.getText()),Integer.parseInt(monthField.getText()),
+                                    Integer.parseInt(dayField.getText()));
                             result = existingTask;
 
 
