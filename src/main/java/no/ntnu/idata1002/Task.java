@@ -4,18 +4,20 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Represent a task to be executed. The task has a name, timeLeft
+ * Represent a task to be executed. The task has a name, timeleft
  * a description and a status indicating if done or not.
  */
 
 public class Task {
 
-    //private String category; //Category of the task  ---Category moved to Project
     private String taskName; // The name of task
     private String description; //Description of task
     private String priority;
-    //private LocalDate deadLine; // How much time left to do task
+    private LocalDate deadLine; // How much time left to do task
     private int timeLeft;
+    private int year;
+    private int month;
+    private int day;
 
     private boolean done;
 
@@ -30,14 +32,17 @@ public class Task {
     //     * @param month month of the deadline
     //     * @param day day of the month, of the deadline
      */
-    public Task(String taskName, String description,String priority, int timeLeft) {
+    public Task(String taskName, String description,String priority, int year,int month, int day) {
         //this.category = category; ---Category moved to Project
         this.taskName = taskName;
         this.description = description;
         this.priority = priority;
         this.timeLeft = timeLeft;
-        //this.deadLine = LocalDate.of(year, month, day);
+        this.deadLine = LocalDate.of(year, month, day);
         this.done = false;
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 
     /**
@@ -49,9 +54,8 @@ public class Task {
         this.setTaskName("");
         this.setDescription("");
         this.setTimeLeft(0);
-        //this.deadLine = LocalDate.now();
+        this.deadLine = LocalDate.now();
         this.done = false;
-        System.out.println("LOL");
 
     }
 
@@ -72,39 +76,38 @@ public class Task {
         return description;
     }
 
-    public int getTimeLeft() { return timeLeft;}
 
 /**
  * Returns the category of class.
  *
  * @return the category
  */
-    /*public String getCategory() {
-        return category;
-    }*/ // -- Category moved to Project
 
-//    /**
-//     * Returns days left until deadline
-//     *
-//     * @return The amount of days left to finish the task
-//     */
-//    public long getTimeLeft() {
-//        return deadLine.until(LocalDate.now(), ChronoUnit.DAYS);
-//    }
+    /**
+     * Returns days left until deadline
+     *
+     * @return The amount of days left to finish the task
+     */
+    public long getTimeLeft() {
+        return deadLine.until(LocalDate.now(), ChronoUnit.DAYS);
+    }
+    public String getTimeLeftUntilDeadline() {
+        return deadLine.toString();
+    }
 
-//    /**
-//     * Sets new deadline for a task
-//     *
-//     * @param year year of the deadline
-//     * @param month month of the deadline
-//     * @param day day of the month, of the deadline
-//     */
-//    public void setDeadLine(int year, int month, int day) {
-//        if(year == 0 || month == 0 || day == 0){
-//            throw new IllegalArgumentException("Parameter of deadLine cannot be null");
-//        }
-//        this.deadLine = LocalDate.of(year, month, day);
-//    }
+    /**
+     * Sets new deadline for a task
+     *
+     * @param year year of the deadline
+     * @param month month of the deadline
+     * @param day day of the month, of the deadline
+     */
+    public void setDeadLine(int year, int month, int day) {
+        if(year == 0 || month == 0 || day == 0){
+            throw new IllegalArgumentException("Parameter of deadLine cannot be null");
+        }
+        this.deadLine = LocalDate.of(year, month, day);
+    }
 
     /**
      * Set time left
@@ -161,9 +164,27 @@ public class Task {
         return this.done;
     }
 
-    @Override
-    public String toString() {
-        return this.taskName;
+//    @Override
+//    public String toString() {
+//        return "Task{" +
+//                ", taskName='" + taskName + '\'' +
+//                ", description='" + description + '\'' +
+//                ", timeLeft=" + getTimeLeft() + "days" +
+//                ", done=" + done +
+//                '}';
+//    }
+
+    public int getYear() {
+        return this.year;
+    }
+
+
+    public int getMonth() {
+        return this.month;
+    }
+
+    public int getDay() {
+        return this.day;
     }
 
     public String getPriority() {
