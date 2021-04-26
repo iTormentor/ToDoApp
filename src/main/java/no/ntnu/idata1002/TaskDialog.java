@@ -36,7 +36,7 @@ public class TaskDialog extends Dialog<Task> {
 
     public TaskDialog(Task task,boolean edit) {
         super();
-        if (edit == true) {
+        if (edit) {
             this.mode = Mode.EDIT;
         } else {
             this.mode = Mode.VIEW;
@@ -59,8 +59,8 @@ public class TaskDialog extends Dialog<Task> {
 
         //Create the grid base.
         GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
+        grid.setHgap(5);
+        grid.setVgap(5);
         grid.setPadding(new Insets(20,150,10,10));
 
         TextField nameField = new TextField();
@@ -86,6 +86,7 @@ public class TaskDialog extends Dialog<Task> {
         TextField priorityField = new TextField();
         priorityField.setPromptText("Priority");
 
+        //TODO: Throw exception if fields are empty.
         //If edit button or view is clicked, set fields to current task values.
         if ((mode == Mode.EDIT) || mode == Mode.VIEW) {
             nameField.setText(existingTask.getTaskName());
@@ -123,7 +124,7 @@ public class TaskDialog extends Dialog<Task> {
                     Task result = null;
                     if (button == ButtonType.OK) {
                         int timeLeft = Integer.parseInt(timeLeftField.getText());
-
+                        //TODO: Throw exception if fields are empty.
                         if (mode == Mode.NEW) {
                             result = new Task(nameField.getText(),descriptionField.getText(),priorityField.getText(),
                                     timeLeft);

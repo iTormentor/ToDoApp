@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -25,9 +22,9 @@ public class MainController implements Initializable {
     private URL location;
 
     private IssueBoard issueBoard;
-    private ObservableList todoTasksObsList=FXCollections.observableArrayList();
-    private ObservableList doingTasksObsList=FXCollections.observableArrayList();
-    private ObservableList doneTasksObsList =FXCollections.observableArrayList();
+    private ObservableList<Task> todoTasksObsList=FXCollections.observableArrayList();
+    private ObservableList<Task> doingTasksObsList=FXCollections.observableArrayList();
+    private ObservableList<Task> doneTasksObsList =FXCollections.observableArrayList();
 
 
 
@@ -50,7 +47,9 @@ public class MainController implements Initializable {
         this.todoTasksObsList.addAll(issueBoard.getTodoTasks());
         this.doingTasksObsList.addAll(issueBoard.getOngoingTasks());
         this.doneTasksObsList.addAll(issueBoard.getFinishedTasks());
-        issueBoard.addTask(new Task("Room", "", "Medium", 1));
+
+        //Dummy task
+        //issueBoard.addTask(new Task("Room", "", "Medium", 1));
 
         this.todoTasksObsList = FXCollections.observableArrayList(this.issueBoard.getTodoTasks());
         this.doingTasksObsList = FXCollections.observableArrayList(this.issueBoard.getOngoingTasks());
@@ -100,7 +99,7 @@ public class MainController implements Initializable {
         }
         if(!(highlightedTask==null)) {
 
-            Alert alert = new Alert(Alert.AlertType.WARNING);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete task");
             alert.setHeaderText("This will completely remove the chosen task");
             alert.setContentText("Are you ok with this?");
@@ -119,8 +118,8 @@ public class MainController implements Initializable {
     /**
      * Move task from one list to the other.
      */
-    //TODO: Create method. 
-    public void doMoveTask() {
+    //TODO: Create method.
+    public void doMoveTask(ActionEvent actionEvent) {
         Task highlightedTask = this.todoListView.getSelectionModel().getSelectedItem();
         if (highlightedTask == null) {
             highlightedTask = this.doingListView.getSelectionModel().getSelectedItem();
@@ -133,12 +132,39 @@ public class MainController implements Initializable {
             }
         }
         if (!(highlightedTask == null)) {
-            i
+            List<Task> oldList = this.issueBoard.getList(highlightedTask);
+            ChoiceDialog<String> choiceDialog = new ChoiceDialog<>("TODO","DOING","DONE");
+            choiceDialog.setTitle("Move task");
+            choiceDialog.setHeaderText("Choose where to move the task.");
+            choiceDialog.showAndWait();
+
+
+            if (choiceDialog.getSelectedItem().equals("TODO")) {
+                List<Task> newList = this.issueBoard.getTodoTasks();
+                this.issueBoard.moveTask(highlightedTask,oldList,newList);
+
+            }
+
+            if (choiceDialog.getSelectedItem().equals("DOING")) {
+                List<Task> newList = this.issueBoard.getOngoingTasks();
+                this.issueBoard.moveTask(highlightedTask,oldList,newList);
+
+            }
+
+            if (choiceDialog.getSelectedItem().equals("DONE")) {
+                List<Task> newList = this.issueBoard.getFinishedTasks();
+                this.issueBoard.moveTask(highlightedTask,oldList,newList);
+            }
+
         }
+        this.updateLists();
     }
 
-
-
+    public void doGetLists(ActionEvent actionEvent) {
+        System.out.println(this.issueBoard.getTodoTasks());
+        System.out.println(this.issueBoard.getOngoingTasks());
+        System.out.println(this.issueBoard.getFinishedTasks());
+    }
 
     /**
      * Edit the selected task.

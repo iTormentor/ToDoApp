@@ -21,7 +21,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         Parent root = null;
-        try {root = FXMLLoader.load(getClass().getClassLoader().getResource("Test.fxml"));
+        try {root = FXMLLoader.load(getClass().getClassLoader().getResource("Main.fxml"));
             primaryStage.setTitle("Poker Game");
             primaryStage.setScene(new Scene(root, 700, 400));
             primaryStage.show();

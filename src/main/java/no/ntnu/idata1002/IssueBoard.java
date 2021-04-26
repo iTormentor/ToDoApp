@@ -3,6 +3,7 @@ package no.ntnu.idata1002;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Iterator;
 
 
 /**
@@ -113,5 +114,43 @@ public class IssueBoard extends Project{
             oldList.remove(task);
             newList.add(task);
         } else throw new IllegalArgumentException("Task cannot be null");
+    }
+
+    /**
+     * Finds the current list that contains the task.
+     * @param task
+     */
+    public List<Task> getList(Task task) {
+        List<Task> result = null;
+        boolean foundTask = false;
+        Iterator<Task> it = this.todoTasks.iterator();
+        Iterator<Task> it2 = this.ongoingTasks.iterator();
+        Iterator<Task> it3 = this.finishedTasks.iterator();
+
+        while (it.hasNext() && !foundTask) {
+        Task nxt = it.next();
+        if (nxt.getTaskName().equalsIgnoreCase(task.getTaskName())) {
+            foundTask = true;
+            result = todoTasks;
+        }
+        }
+
+        while (it2.hasNext() && !foundTask) {
+            Task nxt = it.next();
+            if (nxt.getTaskName().equals( task.getTaskName())) {
+                foundTask = true;
+                result = ongoingTasks;
+            }
+        }
+
+        while (it3.hasNext() && !foundTask) {
+            Task nxt = it.next();
+            if (nxt.getTaskName() == task.getTaskName()) {
+                foundTask = true;
+                result = finishedTasks;
+            }
+        }
+
+        return result;
     }
 }
