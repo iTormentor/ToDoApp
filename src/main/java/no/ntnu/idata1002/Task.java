@@ -51,6 +51,7 @@ public class Task {
         this.setTimeLeft(0);
         //this.deadLine = LocalDate.now();
         this.done = false;
+        System.out.println("LOL");
 
     }
 
