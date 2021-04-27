@@ -60,10 +60,19 @@ public class MainController implements Initializable {
 
     @FXML
     public void doViewDetails(ActionEvent actionEvent) {
-        Task highlightedTask =
-                this.todoListView.getSelectionModel().getSelectedItem();
+        Task highlightedTask = this.todoListView.getSelectionModel().getSelectedItem();
         if (highlightedTask == null) {
-            showPleaseSelectItemDialog();
+            highlightedTask = this.doingListView.getSelectionModel().getSelectedItem();
+            if (highlightedTask == null) {
+                highlightedTask = this.doneListView.getSelectionModel().getSelectedItem();
+                if (highlightedTask == null) {
+                    showPleaseSelectItemDialog();
+                }
+            }
+        }
+
+        if(!(highlightedTask==null)) {
+
         } else {
                 TaskDialog taskDialog = new TaskDialog(highlightedTask, false);
                 taskDialog.showAndWait();
