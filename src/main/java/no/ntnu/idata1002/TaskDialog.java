@@ -131,6 +131,7 @@ public class TaskDialog extends Dialog<Task> {
             descriptionField.setText(existingTask.getDescription());
             //categoryField.setText(existingTask.getCategory());
             priorityField.setText(existingTask.getPriority());
+            existingTask.updateTimeLeft();
             timeLeftField.setText(Long.toString(existingTask.getTimeLeft()));
             yearField.setText(Integer.toString(existingTask.getYear()));
             monthField.setText(Integer.toString(existingTask.getMonth()));
@@ -183,7 +184,7 @@ public class TaskDialog extends Dialog<Task> {
                             existingTask.setPriority(priorityField.getText());
                             existingTask.setDeadLine(Integer.parseInt(yearField.getText()),Integer.parseInt(monthField.getText()),
                                     Integer.parseInt(dayField.getText()));
-                            existingTask.setTimeLeft(existingTask.getTimeLeft());
+                            existingTask.updateTimeLeft();
                             result = existingTask;
 
 

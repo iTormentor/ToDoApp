@@ -44,6 +44,7 @@ public class MainController implements Initializable {
          //Create the business logic by creating an instance of
          //LiteratureRegister and filling it with dummy data.
         this.issueBoard = new IssueBoard("My TODO-APP");
+        issueBoard.addTask(new Task());
         this.todoTasksObsList.addAll(issueBoard.getTodoTasks());
         this.doingTasksObsList.addAll(issueBoard.getOngoingTasks());
         this.doneTasksObsList.addAll(issueBoard.getFinishedTasks());
@@ -72,8 +73,6 @@ public class MainController implements Initializable {
         }
 
         if(!(highlightedTask==null)) {
-
-        } else {
                 TaskDialog taskDialog = new TaskDialog(highlightedTask, false);
                 taskDialog.showAndWait();
             }

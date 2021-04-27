@@ -2,6 +2,9 @@ package no.ntnu.idata1002;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * Represent a task to be executed. The task has a name, timeleft
@@ -34,9 +37,9 @@ public class Task {
         this.taskName = taskName;
         this.description = description;
         this.priority = priority;
-        this.timeLeft = timeLeft;
-        this.deadLine = LocalDate.of(year, month, day);
         this.done = false;
+        setDeadLine(year, month, day);
+
     }
 
     /**
@@ -45,11 +48,11 @@ public class Task {
      */
     public Task() {
         //this.setCategory(""); -- Category moved to Project
-        this.setTaskName("");
+        this.setTaskName("Heo");
         this.setDescription("");
         this.deadLine = LocalDate.now();
-        this.setTimeLeft(this.getTimeLeft());
         this.done = false;
+        updateTimeLeft();
 
     }
 
@@ -71,12 +74,6 @@ public class Task {
     }
 
 
-/**
- * Returns the category of class.
- *
- * @return the category
- */
-
     /**
      * Returns days left until deadline
      *
@@ -97,20 +94,20 @@ public class Task {
      * @param day day of the month, of the deadline
      */
     public void setDeadLine(int year, int month, int day) {
-        if(year == 0 || month == 0 || day == 0){
-            throw new IllegalArgumentException("Parameter of deadLine cannot be null");
+        try {
+            deadLine = LocalDate.of(year, month, day);
+        } catch (Exception e){
+            deadLine = LocalDate.now();
         }
-        this.deadLine = LocalDate.of(year, month, day);
     }
 
     /**
-     * Set time left
+     * Updates time left
      *
-     * @param timeLeft
      */
 
-    public void setTimeLeft(long timeLeft) {
-        this.timeLeft = timeLeft;
+    public void updateTimeLeft() {
+        timeLeft = getTimeLeft();
     }
 
     /**
