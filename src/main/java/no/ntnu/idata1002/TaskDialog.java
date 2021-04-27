@@ -37,7 +37,7 @@ public class TaskDialog extends Dialog<Task> {
 
     public TaskDialog(Task task,boolean edit) {
         super();
-        if (edit == true) {
+        if (edit) {
             this.mode = Mode.EDIT;
         } else {
             this.mode = Mode.VIEW;
@@ -131,7 +131,7 @@ public class TaskDialog extends Dialog<Task> {
             descriptionField.setText(existingTask.getDescription());
             //categoryField.setText(existingTask.getCategory());
             priorityField.setText(existingTask.getPriority());
-//            timeLeftField.setText(Integer.toString(existingTask.getTimeLeft()));
+            timeLeftField.setText(Long.toString(existingTask.getTimeLeft()));
             yearField.setText(Integer.toString(existingTask.getYear()));
             monthField.setText(Integer.toString(existingTask.getMonth()));
             dayField.setText(Integer.toString(existingTask.getDay()));
@@ -171,7 +171,6 @@ public class TaskDialog extends Dialog<Task> {
         setResultConverter((ButtonType button) -> {
                     Task result = null;
                     if (button == ButtonType.OK) {
-                        int timeLeft = Integer.parseInt(timeLeftField.getText());
 
                         if (mode == Mode.NEW) {
                             result = new Task(nameField.getText(),descriptionField.getText(),priorityField.getText(),
@@ -181,10 +180,10 @@ public class TaskDialog extends Dialog<Task> {
                         } else if (mode == Mode.EDIT){
                             existingTask.setDescription(descriptionField.getText());
                             existingTask.setTaskName(nameField.getText());
-                            existingTask.setTimeLeft(timeLeft);
                             existingTask.setPriority(priorityField.getText());
                             existingTask.setDeadLine(Integer.parseInt(yearField.getText()),Integer.parseInt(monthField.getText()),
                                     Integer.parseInt(dayField.getText()));
+                            existingTask.setTimeLeft(existingTask.getTimeLeft());
                             result = existingTask;
 
 

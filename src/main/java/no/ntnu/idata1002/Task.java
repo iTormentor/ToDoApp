@@ -14,10 +14,7 @@ public class Task {
     private String description; //Description of task
     private String priority;
     private LocalDate deadLine; // How much time left to do task
-    private int timeLeft;
-    private int year;
-    private int month;
-    private int day;
+    private long timeLeft = 0;
 
     private boolean done;
 
@@ -32,7 +29,7 @@ public class Task {
     //     * @param month month of the deadline
     //     * @param day day of the month, of the deadline
      */
-    public Task(String taskName, String description,String priority, int year,int month, int day) {
+    public Task(String taskName, String description, String priority, int year,int month, int day) {
         //this.category = category; ---Category moved to Project
         this.taskName = taskName;
         this.description = description;
@@ -40,9 +37,6 @@ public class Task {
         this.timeLeft = timeLeft;
         this.deadLine = LocalDate.of(year, month, day);
         this.done = false;
-        this.year = year;
-        this.month = month;
-        this.day = day;
     }
 
     /**
@@ -53,8 +47,8 @@ public class Task {
         //this.setCategory(""); -- Category moved to Project
         this.setTaskName("");
         this.setDescription("");
-        this.setTimeLeft(0);
         this.deadLine = LocalDate.now();
+        this.setTimeLeft(this.getTimeLeft());
         this.done = false;
 
     }
@@ -115,7 +109,7 @@ public class Task {
      * @param timeLeft
      */
 
-    public void setTimeLeft(int timeLeft) {
+    public void setTimeLeft(long timeLeft) {
         this.timeLeft = timeLeft;
     }
 
@@ -164,27 +158,22 @@ public class Task {
         return this.done;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Task{" +
-//                ", taskName='" + taskName + '\'' +
-//                ", description='" + description + '\'' +
-//                ", timeLeft=" + getTimeLeft() + "days" +
-//                ", done=" + done +
-//                '}';
-//    }
+    @Override
+    public String toString(){
+        return this.taskName;
+    }
 
     public int getYear() {
-        return this.year;
+        return deadLine.getYear();
     }
 
 
     public int getMonth() {
-        return this.month;
+        return deadLine.getMonthValue();
     }
 
     public int getDay() {
-        return this.day;
+        return deadLine.getDayOfMonth();
     }
 
     public String getPriority() {

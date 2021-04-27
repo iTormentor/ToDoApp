@@ -20,9 +20,9 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Parent root = null;
+        Parent root;
         try {root = FXMLLoader.load(getClass().getClassLoader().getResource("Main.fxml"));
-            primaryStage.setTitle("Poker Game");
+            primaryStage.setTitle("ToDo-App");
             primaryStage.setScene(new Scene(root, 700, 400));
             primaryStage.show();
 
