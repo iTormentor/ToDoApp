@@ -47,7 +47,7 @@ public class Task {
      */
     public Task() {
         //this.setCategory(""); -- Category moved to Project
-        this.setTaskName("Heo");
+        this.setTaskName("Unnamed task");
         this.setDescription("");
         this.deadLine = LocalDate.now();
         this.done = false;
@@ -116,7 +116,7 @@ public class Task {
      */
     public void setTaskName(String taskName) {
         try {
-            if(taskName == "") {
+            if(taskName.equals("")) {
                 this.taskName = "Unnamed task";
             } else {
                 this.taskName = taskName;
