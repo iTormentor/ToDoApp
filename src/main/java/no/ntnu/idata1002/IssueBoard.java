@@ -145,7 +145,7 @@ public class IssueBoard extends Project{
 
         while (it3.hasNext() && !foundTask) {
             Task nxt = it.next();
-            if (nxt.getTaskName() == task.getTaskName()) {
+            if (nxt.getTaskName().equals(task.getTaskName())) {
                 foundTask = true;
                 result = finishedTasks;
             }
