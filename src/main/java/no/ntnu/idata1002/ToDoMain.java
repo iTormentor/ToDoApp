@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ToDoMain {
 
-    private List<Project> projectList;
+    private final List<Project> projectList;
 
     /**
      * Creates a List that can be filled with projects
@@ -21,8 +21,9 @@ public class ToDoMain {
      */
     //TODO Cant finish before the Task classes is finished
     public void fillWithDummies(){
-        projectList.add(new Project("House-work"));
-        projectList.add(new Project("Garden-work"));
+        projectList.add(new IssueBoard("House-work"));
+        projectList.add(new IssueBoard("Garden-work"));
+        projectList.add(new SimpleProject("Grocery shopping"));
     }
 
 
@@ -60,7 +61,7 @@ public class ToDoMain {
      *
      * @return All projects marked as
      */
-    public List<Project> listDoneProjects(){
+    public List<Project> listFinishedProjects(){
 
         List<Project> doneProjects = new ArrayList<>();
         for (Project project : projectList) {
@@ -106,7 +107,7 @@ public class ToDoMain {
      * Removes an existing project from the projectList
      * @param project The project to be removed
      */
-    public void removeProject(Project project){
+    public void removeProject(IssueBoard project){
         projectList.remove(project);
     }
 }

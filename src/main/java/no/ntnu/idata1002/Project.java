@@ -1,45 +1,24 @@
 package no.ntnu.idata1002;
 
-import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * All existing projects should exist in the ToDoMain List over existing projects
- */
-public class Project {
+public abstract class Project {
 
     private String projectName;
-    private final List<Task> taskList;
     private boolean started = false;
     private boolean finished = false;
 
-
-    /**
-     * Constructor for Project.
-     * Creates an empty list, that can be filled with Tasks
-     *
-     * @param name Name of the project as String
-     */
-    public Project(String name){
-        this.projectName = name;
-        taskList = new ArrayList<>();
+    public Project(String projectName){
+        this.projectName = projectName;
 
     }
 
-    /**
-     * Changes the status of the started variable
-     */
-    public void setFinished(boolean status){
-        this.finished = status;
-    }
 
-    /**
-     * Changes the status of the finished variable
-     */
-    public void setStarted(boolean status){
-        this.started = status;
-    }
+    public abstract void addTask(Task task);
+
+    public abstract void removeTask(Task task, List<Task> list);
+
+    public abstract void removeTask(Task task);
 
 
     /**
@@ -78,30 +57,21 @@ public class Project {
         return this.started;
     }
 
+
     /**
-     * Returns the taskList
-     *
-     * @return The list contained in the 'tasks' variable
+     * Changes the status of the started variable
      */
-    public List<Task> getTaskListTask(){
-        return this.taskList;
+    public void setFinished(boolean status){
+        this.finished = status;
     }
 
     /**
-     * Adds a task to ArrayList taskList
-     *
-     * @param task The Task object to be added
+     * Changes the status of the finished variable
      */
-    public void addTask(Task task){
-        taskList.add(task);
+    public void setStarted(boolean status){
+        this.started = status;
     }
 
-    /**
-     * Removes a task from the ArrayList taskList
-     *
-     * @param task The Task object to be removed
-     */
-    public void removeTask(Task task){
-        taskList.remove(task);
-    }
+    public abstract void moveTask(Task task, List<Task> oldList, List<Task> newList);
 }
+

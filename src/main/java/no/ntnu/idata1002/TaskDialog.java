@@ -1,5 +1,6 @@
 package no.ntnu.idata1002;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -12,11 +13,12 @@ import no.ntnu.idata1002.Task;
 import no.ntnu.idata1002.Project;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class TaskDialog extends Dialog<Task> {
 
     public enum Mode {
-        NEW,EDIT,VIEW
+        NEW, EDIT, VIEW
     }
 
 
@@ -24,7 +26,7 @@ public class TaskDialog extends Dialog<Task> {
     private final Mode mode;
 
     //creates and existing task object that can be viewed or edited.
-    private  Task existingTask = null;
+    private Task existingTask = null;
 
 
     public TaskDialog() {
@@ -34,9 +36,9 @@ public class TaskDialog extends Dialog<Task> {
 
     }
 
-    public TaskDialog(Task task,boolean edit) {
+    public TaskDialog(Task task, boolean edit) {
         super();
-        if (edit == true) {
+        if (edit) {
             this.mode = Mode.EDIT;
         } else {
             this.mode = Mode.VIEW;
@@ -48,7 +50,6 @@ public class TaskDialog extends Dialog<Task> {
 
     private void createStuff() {
         setTitle("Task");
-        Task task = new Task("blabla","hei","sup",1,"liten");
 
 
         //Add exit button if in view only and exit and OK if in edit or add.
@@ -62,14 +63,17 @@ public class TaskDialog extends Dialog<Task> {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(20,150,10,10));
+        grid.setPadding(new Insets(20, 150, 10, 10));
 
         TextField nameField = new TextField();
         nameField.setPromptText("Name");
 
-        TextField timeLeftField = new TextField();
-        timeLeftField.setPromptText("Time left");
-        timeLeftField.textProperty().addListener((observable, oldValue, newValue) -> {
+        TextArea descriptionField = new TextArea();
+        descriptionField.setPromptText("Description");
+
+        TextField yearField = new TextField();
+        yearField.setPromptText("Year");
+        yearField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 if (newValue.length() > 0) {
                     Integer.parseInt(newValue);
@@ -77,15 +81,45 @@ public class TaskDialog extends Dialog<Task> {
             } catch (NumberFormatException e) {
                 // The user have entered a non-integer character, hence just keep the
                 // oldValue and ignore the newValue.
-                timeLeftField.setText(oldValue);
+                yearField.setText(oldValue);
             }
         });
 
-        TextArea descriptionField = new TextArea();
-        descriptionField.setPromptText("Description");
+        TextField monthField = new TextField();
+        monthField.setPromptText("Month");
+        monthField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                if (newValue.length() > 0) {
+                    Integer.parseInt(newValue);
+                }
+            } catch (NumberFormatException e) {
+                // The user have entered a non-integer character, hence just keep the
+                // oldValue and ignore the newValue.
+                monthField.setText(oldValue);
+            }
+        });
 
-        TextField categoryField = new TextField();
-        categoryField.setPromptText("Category");
+        TextField dayField = new TextField();
+        dayField.setPromptText("Day");
+        dayField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                if (newValue.length() > 0) {
+                    Integer.parseInt(newValue);
+                }
+            } catch (NumberFormatException e) {
+                // The user have entered a non-integer character, hence just keep the
+                // oldValue and ignore the newValue.
+                dayField.setText(oldValue);
+            }
+        });
+
+        TextField timeLeftField = new TextField();
+        timeLeftField.setEditable(false);
+        timeLeftField.setPromptText("Time left until deadline:");
+
+        TextField deadLine = new TextField();
+        deadLine.setPromptText("Deadline: ");
+
 
         TextField priorityField = new TextField();
         priorityField.setPromptText("Priority");
@@ -94,19 +128,23 @@ public class TaskDialog extends Dialog<Task> {
         if ((mode == Mode.EDIT) || mode == Mode.VIEW) {
             nameField.setText(existingTask.getTaskName());
             descriptionField.setText(existingTask.getDescription());
-            categoryField.setText(existingTask.getCategory());
+            //categoryField.setText(existingTask.getCategory());
             priorityField.setText(existingTask.getPriority());
-            timeLeftField.setText(Integer.toString(existingTask.getTimeLeft()));
-
+            existingTask.updateTimeLeft();
+            timeLeftField.setText(Long.toString(existingTask.getTimeLeft()));
+            yearField.setText(Integer.toString(existingTask.getYear()));
+            monthField.setText(Integer.toString(existingTask.getMonth()));
+            dayField.setText(Integer.toString(existingTask.getDay()));
 
 
             //Make fields uneditable if in view only mode.
             if (mode == Mode.VIEW) {
                 nameField.setEditable(false);
                 descriptionField.setEditable(false);
-                categoryField.setEditable(false);
                 priorityField.setEditable(false);
-                timeLeftField.setEditable(false);
+                yearField.setEditable(false);
+                monthField.setEditable(false);
+                dayField.setEditable(false);
             }
 
         }
@@ -118,39 +156,49 @@ public class TaskDialog extends Dialog<Task> {
         grid.add(descriptionField, 1, 1);
         grid.add(new Label("Priority:"), 0, 2);
         grid.add(priorityField, 1, 2);
-        grid.add(new Label("Category"), 0, 3);
-        grid.add(categoryField, 1, 3);
-        grid.add(new Label("Time left:"),0,4);
-        grid.add(timeLeftField,1,4);
+        //grid.add(new Label("Category"), 0, 3);
+        //grid.add(categoryField, 1, 3);
+        grid.add(new Label("Time left:"), 0, 3);
+        grid.add(timeLeftField, 1, 3);
+        grid.add(new Label("Deadline:"), 0, 4);
+        grid.addRow(5, yearField, monthField, dayField);
+
 
         //Add the grid to the dialog.
         getDialogPane().setContent(grid);
 
-    setResultConverter((ButtonType button) -> {
-    Task result = null;
-    if (button == ButtonType.OK) {
-        int timeLeft = Integer.parseInt(timeLeftField.getText());
 
-        if (mode == Mode.NEW) {
-            result = new Task(categoryField.getText(),nameField.getText(),descriptionField.getText(),timeLeft,priorityField.getText());
+        setResultConverter((ButtonType button) -> {
+                    Task result = null;
+                    if (button == ButtonType.OK) {
+                        if ((yearField.getText() == "") || (monthField.getText() == "") || dayField.getText() == "") {
+                            yearField.setText("0");
+                            monthField.setText("0");
+                            dayField.setText("0");
+                        }
+                        if (mode == Mode.NEW) {
+                            result = new Task(nameField.getText(), descriptionField.getText(), priorityField.getText(),
+                                    Integer.parseInt(yearField.getText()), Integer.parseInt(monthField.getText()),
+                                    Integer.parseInt(dayField.getText()));
 
-        } else if (mode == Mode.EDIT){
-            existingTask.setCategory(categoryField.getText());
-            existingTask.setDescription(descriptionField.getText());
-            existingTask.setName(nameField.getText());
-            existingTask.setTimeLeft(timeLeft);
-            existingTask.setPriority(priorityField.getText());
-            result = existingTask;
+                        } else if (mode == Mode.EDIT) {
+                            existingTask.setDescription(descriptionField.getText());
+                            existingTask.setTaskName(nameField.getText());
+                            existingTask.setPriority(priorityField.getText());
+                            existingTask.setDeadLine(Integer.parseInt(yearField.getText()), Integer.parseInt(monthField.getText()),
+                                    Integer.parseInt(dayField.getText()));
+                            existingTask.updateTimeLeft();
+                            result = existingTask;
 
 
-        }
+                        }
+                    }
+                    return result;
+                }
+        );
+
+
     }
-    return result;
-        }
-    );
-    }
-
 }
-
 
 

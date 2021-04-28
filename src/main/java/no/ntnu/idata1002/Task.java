@@ -1,19 +1,24 @@
 package no.ntnu.idata1002;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
- * Represent a task to be executed. The task has a name, timeleft
+ * Represent a task to be executed. The task has a name, time left,
  * a description and a status indicating if done or not.
  */
 
 public class Task {
 
-    private String category; //Category of the task
     private String taskName; // The name of task
     private String description; //Description of task
     private String priority;
-    private int timeLeft; // How much time left to do task
+    private LocalDate deadLine; // How much time left to do task
+    private long timeLeft = 0;
+
     private boolean done;
 
 
@@ -21,18 +26,19 @@ public class Task {
      * Creates an instance of TodoTask.
      * Note how mutator-methods are used to set the fields instead
      * of setting the fields directly.
-     * @param category task category
      * @param taskName   the name of the task
      * @param description a more detailed description of the task
-     * @param timeLeft how much time left to do task
+    //     * @param year year of the deadline
+    //     * @param month month of the deadline
+    //     * @param day day of the month, of the deadline
      */
-    public Task(String category,String taskName, String description, int timeLeft,String priority) {
-        this.category = category;
-        this.taskName = taskName;
-        this.description = description;
-        this.timeLeft = timeLeft;
-        this.priority = priority;
+    public Task(String taskName, String description, String priority, int year,int month, int day) {
+        setTaskName(taskName);
+        setDescription(description);
+        setPriority(priority);
         this.done = false;
+        setDeadLine(year, month, day);
+
     }
 
     /**
@@ -40,11 +46,12 @@ public class Task {
      * Sets the fields to empty strings to avoid NullPointerException.
      */
     public Task() {
-        this.setCategory("");
-        this.setName("");
+        //this.setCategory(""); -- Category moved to Project
+        this.setTaskName("Unnamed task");
         this.setDescription("");
-        this.setTimeLeft(0);
-        this.setPriority("");
+        this.deadLine = LocalDate.now();
+        this.done = false;
+        updateTimeLeft();
 
     }
 
@@ -65,86 +72,59 @@ public class Task {
         return description;
     }
 
+
     /**
-     * Returns the category of class.
+     * Returns days left until deadline
      *
-     * @return the category
+     * @return The amount of days left to finish the task
      */
-    public String getCategory() {
-        return category;
+    public long getTimeLeft() {
+        return deadLine.until(LocalDate.now(), ChronoUnit.DAYS);
+    }
+    public String getTimeLeftUntilDeadline() {
+        return deadLine.toString();
     }
 
     /**
-     * Returns the priority of class.
+     * Sets new deadline for a task
      *
-     * @return the category
+     * @param year year of the deadline
+     * @param month month of the deadline
+     * @param day day of the month, of the deadline
      */
-
-    public String getPriority() { return priority;}
-
-    /**
-     * Returns timeleft to finish the task
-     *
-     * @return timeleft to finish the task
-     */
-    public int getTimeLeft() {
-        return timeLeft;
-    }
-
-
-
-//    /**
-//     * Sets the category.
-//     *
-//     * @param timeLeft the summary to be set
-//     */
-//    public void setTimeLeft(String timeLeft) {
-//        if (null == timeLeft) {
-//            throw new IllegalArgumentException("Parameter category cannot be null");
-//        }
-//        this.timeLeft = Integer.parseInt(timeLeft);
-//    }
-
-    public void setTimeLeft(int timeLeft) {this.timeLeft=timeLeft;}
-
-
-    /**
-     * Sets the priority.
-     *
-     * @param name the summary to be set
-     */
-    public void setName(String name) {
-        if (null == name) {
-            throw new IllegalArgumentException("Parameter category cannot be null");
+    public void setDeadLine(int year, int month, int day) {
+        try {
+            deadLine = LocalDate.of(year, month, day);
+        } catch (Exception e){
+            deadLine = LocalDate.now();
         }
-        this.taskName = category;
-    }
-
-
-    /**
-     * Sets the priority.
-     *
-     * @param priority the summary to be set
-     */
-    public void setPriority(String priority) {
-        if (null == priority) {
-            throw new IllegalArgumentException("Parameter category cannot be null");
-        }
-        this.priority = category;
     }
 
     /**
-     * Sets the category.
+     * Updates time left
      *
-     * @param category the summary to be set
      */
-    public void setCategory(String category) {
-        if (null == category) {
-            throw new IllegalArgumentException("Parameter category cannot be null");
-        }
-        this.category = category;
+
+    public void updateTimeLeft() {
+        timeLeft = getTimeLeft();
     }
 
+    /**
+     * Sets the task name
+     *
+     * @param taskName the name of task
+     */
+    public void setTaskName(String taskName) {
+        try {
+            if(taskName.equals("")) {
+                this.taskName = "Unnamed task";
+            } else {
+                this.taskName = taskName;
+            }
+        } catch(Exception e) {
+            this.taskName = "Unnamed task";
+        }
+    }
 
     /**
      * Sets the description.
@@ -152,10 +132,24 @@ public class Task {
      * @param description the description of the task
      */
     public void setDescription(String description) {
-        if (null == description) {
-            throw new IllegalArgumentException("Parameter description cannot be null");
+        try {
+            this.description = description;
+        } catch (Exception e) {
+            this.description = "";
         }
-        this.description = description;
+    }
+
+    /**
+     * Sets the priority.
+     *
+     * @param priority the description of the task
+     */
+    public void setPriority(String priority) {
+        try {
+            this.priority = priority;
+        } catch(Exception e) {
+            this.priority = "";
+        }
     }
 
     /**
@@ -168,13 +162,24 @@ public class Task {
     }
 
     @Override
-    public String toString() {
-        return "Task{" +
-                "category=" + category +
-                ", taskName='" + taskName + '\'' +
-                ", description='" + description + '\'' +
-                ", timeLeft=" + timeLeft +
-                ", done=" + done +
-                '}';
+    public String toString(){
+        return this.taskName;
+    }
+
+    public int getYear() {
+        return deadLine.getYear();
+    }
+
+
+    public int getMonth() {
+        return deadLine.getMonthValue();
+    }
+
+    public int getDay() {
+        return deadLine.getDayOfMonth();
+    }
+
+    public String getPriority() {
+        return this.priority;
     }
 }
