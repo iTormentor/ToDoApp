@@ -129,10 +129,13 @@ public class MainController implements Initializable {
     //TODO: Create method.
     public void doMoveTask(ActionEvent actionEvent) {
         Task highlightedTask = this.todoListView.getSelectionModel().getSelectedItem();
+        List<Task> oldList = this.issueBoard.getTodoTasks();
         if (highlightedTask == null) {
             highlightedTask = this.doingListView.getSelectionModel().getSelectedItem();
+            oldList = this.issueBoard.getOngoingTasks();
             if (highlightedTask == null) {
                 highlightedTask = this.doneListView.getSelectionModel().getSelectedItem();
+                oldList = this.issueBoard.getFinishedTasks();
                 if (highlightedTask == null) {
                     showPleaseSelectItemDialog();
 
@@ -140,7 +143,7 @@ public class MainController implements Initializable {
             }
         }
         if (!(highlightedTask == null)) {
-            List<Task> oldList = this.issueBoard.getList(highlightedTask);
+
             ChoiceDialog<String> choiceDialog = new ChoiceDialog<>("TODO","DOING","DONE");
             choiceDialog.setTitle("Move task");
             choiceDialog.setHeaderText("Choose where to move the task.");
