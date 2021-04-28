@@ -17,10 +17,8 @@
             <children>
                 <Button mnemonicParsing="false" onAction="#doAddTask" text="New task" />
                 <Button mnemonicParsing="false" onAction="#doEditTask" text="Edit task" />
-                <Button fx:id="viewTask" mnemonicParsing="false" onAction="#doViewDetails" text="Details" />
                 <Button fx:id="moveTask" mnemonicParsing="false" onAction="#doMoveTask" text="Move task" />
                 <Button mnemonicParsing="false" onAction="#doRemoveTask" text="Remove task" />
-            <Button mnemonicParsing="false" onAction="#doGetLists" text="getLists" />
             </children>
         </HBox>
         <HBox alignment="BOTTOM_CENTER" layoutX="32.0" layoutY="54.0" prefHeight="40.0" prefWidth="535.0" spacing="150.0">

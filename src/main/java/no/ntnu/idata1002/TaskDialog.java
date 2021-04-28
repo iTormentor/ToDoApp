@@ -22,13 +22,13 @@ public class TaskDialog extends Dialog<Task> {
     }
 
 
-    //Field for mode that can be put into new, edit or info.
+    //Mode that can be new, edit or view.
     private final Mode mode;
 
-    //creates and existing task object that can be viewed or edited.
+    //Creates a task that can be added or edited or viewed.
     private Task existingTask = null;
 
-
+    //Constructor for dialog when in new mode.
     public TaskDialog() {
         super();
         this.mode = Mode.NEW;
@@ -36,6 +36,7 @@ public class TaskDialog extends Dialog<Task> {
 
     }
 
+    //Constructor for dialog when in edit or view mode.
     public TaskDialog(Task task, boolean edit) {
         super();
         if (edit) {
@@ -48,6 +49,7 @@ public class TaskDialog extends Dialog<Task> {
         createStuff();
     }
 
+    //Creates the content for the dialog and adds, edits or views a task.
     private void createStuff() {
         setTitle("Task");
 
@@ -79,8 +81,7 @@ public class TaskDialog extends Dialog<Task> {
                     Integer.parseInt(newValue);
                 }
             } catch (NumberFormatException e) {
-                // The user have entered a non-integer character, hence just keep the
-                // oldValue and ignore the newValue.
+                //Ignores new value if not an integer
                 yearField.setText(oldValue);
             }
         });
@@ -93,8 +94,7 @@ public class TaskDialog extends Dialog<Task> {
                     Integer.parseInt(newValue);
                 }
             } catch (NumberFormatException e) {
-                // The user have entered a non-integer character, hence just keep the
-                // oldValue and ignore the newValue.
+                //Ignores new value if not an integer
                 monthField.setText(oldValue);
             }
         });
@@ -107,8 +107,7 @@ public class TaskDialog extends Dialog<Task> {
                     Integer.parseInt(newValue);
                 }
             } catch (NumberFormatException e) {
-                // The user have entered a non-integer character, hence just keep the
-                // oldValue and ignore the newValue.
+                //Ignores new value if not an integer
                 dayField.setText(oldValue);
             }
         });
@@ -128,7 +127,6 @@ public class TaskDialog extends Dialog<Task> {
         if ((mode == Mode.EDIT) || mode == Mode.VIEW) {
             nameField.setText(existingTask.getTaskName());
             descriptionField.setText(existingTask.getDescription());
-            //categoryField.setText(existingTask.getCategory());
             priorityField.setText(existingTask.getPriority());
             existingTask.updateTimeLeft();
             timeLeftField.setText(Long.toString(existingTask.getTimeLeft()));
@@ -156,8 +154,6 @@ public class TaskDialog extends Dialog<Task> {
         grid.add(descriptionField, 1, 1);
         grid.add(new Label("Priority:"), 0, 2);
         grid.add(priorityField, 1, 2);
-        //grid.add(new Label("Category"), 0, 3);
-        //grid.add(categoryField, 1, 3);
         grid.add(new Label("Time left:"), 0, 3);
         grid.add(timeLeftField, 1, 3);
         grid.add(new Label("Deadline:"), 0, 4);
@@ -168,6 +164,7 @@ public class TaskDialog extends Dialog<Task> {
         getDialogPane().setContent(grid);
 
 
+        //Converts the task to new task if in new, and updates the fields if in edit.
         setResultConverter((ButtonType button) -> {
                     Task result = null;
                     if (button == ButtonType.OK) {
