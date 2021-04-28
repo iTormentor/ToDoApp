@@ -38,7 +38,7 @@
                     Tillegg for JLink
                     -->
                     <release>${maven.compiler.target}</release>
-                    <jlinkImageName>hellofx</jlinkImageName>
+                    <jlinkImageName>ToDoAppLauncher</jlinkImageName>
                     <launcher>launcher</launcher>
                     <!--
                     Main-klassen i prosjektet ditt
