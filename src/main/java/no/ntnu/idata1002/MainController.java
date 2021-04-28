@@ -41,24 +41,43 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-         //Create the business logic by creating an instance of
-         //LiteratureRegister and filling it with dummy data.
+        //Creates the lists needed.
         this.issueBoard = new IssueBoard("My TODO-APP");
         issueBoard.addTask(new Task());
         this.todoTasksObsList.addAll(issueBoard.getTodoTasks());
         this.doingTasksObsList.addAll(issueBoard.getOngoingTasks());
         this.doneTasksObsList.addAll(issueBoard.getFinishedTasks());
 
-        //Dummy task
-        //issueBoard.addTask(new Task("Room", "", "Medium", 1));
-
         this.todoTasksObsList = FXCollections.observableArrayList(this.issueBoard.getTodoTasks());
         this.doingTasksObsList = FXCollections.observableArrayList(this.issueBoard.getOngoingTasks());
         this.doneTasksObsList = FXCollections.observableArrayList(this.issueBoard.getFinishedTasks());
 
         updateLists();
+
+        //Adds listener for double click in each list.
+        this.todoListView.setOnMousePressed(mouseEvent -> {
+            if(mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2) {
+                this.doViewDetails(null);
+            }
+        });
+
+        this.doingListView.setOnMousePressed(mouseEvent -> {
+            if(mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2) {
+                this.doViewDetails(null);
+            }
+        });
+
+        this.doneListView.setOnMousePressed(mouseEvent -> {
+            if(mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2) {
+                this.doViewDetails(null);
+            }
+        });
     }
 
+    /**
+     * View details of the task.
+     * @param actionEvent triggers the method on double click.
+     */
     @FXML
     public void doViewDetails(ActionEvent actionEvent) {
         Task highlightedTask = this.todoListView.getSelectionModel().getSelectedItem();
@@ -78,6 +97,10 @@ public class MainController implements Initializable {
             }
         }
 
+    /**
+     * Adds a new task.
+     * @param actionEvent triggers the method.
+     */
     @FXML
     public void doAddTask(ActionEvent actionEvent) {
         TaskDialog taskDialog = new TaskDialog();
@@ -203,6 +226,9 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Updates the lists after move or new task is added.
+     */
     private void updateLists() {
         this.todoTasksObsList.setAll(this.issueBoard.getTodoTasks());
         this.doingTasksObsList.setAll(this.issueBoard.getOngoingTasks());
@@ -217,8 +243,7 @@ public class MainController implements Initializable {
 
 
     /**
-     * Displays a warning informing the user that an item must be selected from
-     * the table.
+    *Display this if user tries to run a method without a task selected.
      */
     private void showPleaseSelectItemDialog() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
