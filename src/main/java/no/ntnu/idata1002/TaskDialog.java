@@ -1,5 +1,6 @@
 package no.ntnu.idata1002;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -17,7 +18,7 @@ import java.util.Date;
 public class TaskDialog extends Dialog<Task> {
 
     public enum Mode {
-        NEW,EDIT,VIEW
+        NEW, EDIT, VIEW
     }
 
 
@@ -25,7 +26,7 @@ public class TaskDialog extends Dialog<Task> {
     private final Mode mode;
 
     //creates and existing task object that can be viewed or edited.
-    private  Task existingTask = null;
+    private Task existingTask = null;
 
 
     public TaskDialog() {
@@ -35,7 +36,7 @@ public class TaskDialog extends Dialog<Task> {
 
     }
 
-    public TaskDialog(Task task,boolean edit) {
+    public TaskDialog(Task task, boolean edit) {
         super();
         if (edit) {
             this.mode = Mode.EDIT;
@@ -62,7 +63,7 @@ public class TaskDialog extends Dialog<Task> {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(20,150,10,10));
+        grid.setPadding(new Insets(20, 150, 10, 10));
 
         TextField nameField = new TextField();
         nameField.setPromptText("Name");
@@ -120,8 +121,6 @@ public class TaskDialog extends Dialog<Task> {
         deadLine.setPromptText("Deadline: ");
 
 
-
-
         TextField priorityField = new TextField();
         priorityField.setPromptText("Priority");
 
@@ -136,7 +135,6 @@ public class TaskDialog extends Dialog<Task> {
             yearField.setText(Integer.toString(existingTask.getYear()));
             monthField.setText(Integer.toString(existingTask.getMonth()));
             dayField.setText(Integer.toString(existingTask.getDay()));
-
 
 
             //Make fields uneditable if in view only mode.
@@ -160,29 +158,34 @@ public class TaskDialog extends Dialog<Task> {
         grid.add(priorityField, 1, 2);
         //grid.add(new Label("Category"), 0, 3);
         //grid.add(categoryField, 1, 3);
-        grid.add(new Label("Time left:"),0,3);
-        grid.add(timeLeftField,1,3);
-        grid.add(new Label("Deadline:"),0,4);
-        grid.addRow(5,yearField,monthField,dayField);
+        grid.add(new Label("Time left:"), 0, 3);
+        grid.add(timeLeftField, 1, 3);
+        grid.add(new Label("Deadline:"), 0, 4);
+        grid.addRow(5, yearField, monthField, dayField);
 
 
         //Add the grid to the dialog.
         getDialogPane().setContent(grid);
 
+
         setResultConverter((ButtonType button) -> {
                     Task result = null;
                     if (button == ButtonType.OK) {
-
+                        if ((yearField.getText() == "") || (monthField.getText() == "") || dayField.getText() == "") {
+                            yearField.setText("0");
+                            monthField.setText("0");
+                            dayField.setText("0");
+                        }
                         if (mode == Mode.NEW) {
-                            result = new Task(nameField.getText(),descriptionField.getText(),priorityField.getText(),
-                                    Integer.parseInt(yearField.getText()),Integer.parseInt(monthField.getText()),
+                            result = new Task(nameField.getText(), descriptionField.getText(), priorityField.getText(),
+                                    Integer.parseInt(yearField.getText()), Integer.parseInt(monthField.getText()),
                                     Integer.parseInt(dayField.getText()));
 
-                        } else if (mode == Mode.EDIT){
+                        } else if (mode == Mode.EDIT) {
                             existingTask.setDescription(descriptionField.getText());
                             existingTask.setTaskName(nameField.getText());
                             existingTask.setPriority(priorityField.getText());
-                            existingTask.setDeadLine(Integer.parseInt(yearField.getText()),Integer.parseInt(monthField.getText()),
+                            existingTask.setDeadLine(Integer.parseInt(yearField.getText()), Integer.parseInt(monthField.getText()),
                                     Integer.parseInt(dayField.getText()));
                             existingTask.updateTimeLeft();
                             result = existingTask;
@@ -193,9 +196,9 @@ public class TaskDialog extends Dialog<Task> {
                     return result;
                 }
         );
+
+
     }
-
 }
-
 
 

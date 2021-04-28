@@ -33,10 +33,9 @@ public class Task {
     //     * @param day day of the month, of the deadline
      */
     public Task(String taskName, String description, String priority, int year,int month, int day) {
-        //this.category = category; ---Category moved to Project
-        this.taskName = taskName;
-        this.description = description;
-        this.priority = priority;
+        setTaskName(taskName);
+        setDescription(description);
+        setPriority(priority);
         this.done = false;
         setDeadLine(year, month, day);
 
@@ -116,10 +115,15 @@ public class Task {
      * @param taskName the name of task
      */
     public void setTaskName(String taskName) {
-        if (null == taskName) {
-            throw new IllegalArgumentException("Parameter of task name cannot be null");
+        try {
+            if(taskName == "") {
+                this.taskName = "Unnamed task";
+            } else {
+                this.taskName = taskName;
+            }
+        } catch(Exception e) {
+            this.taskName = "Unnamed task";
         }
-        this.taskName = taskName;
     }
 
     /**
@@ -128,10 +132,11 @@ public class Task {
      * @param description the description of the task
      */
     public void setDescription(String description) {
-        if (null == description) {
-            throw new IllegalArgumentException("Parameter description cannot be null");
+        try {
+            this.description = description;
+        } catch (Exception e) {
+            this.description = "";
         }
-        this.description = description;
     }
 
     /**
@@ -140,10 +145,11 @@ public class Task {
      * @param priority the description of the task
      */
     public void setPriority(String priority) {
-        if (null == priority) {
-            throw new IllegalArgumentException("Parameter description cannot be null");
+        try {
+            this.priority = priority;
+        } catch(Exception e) {
+            this.priority = "";
         }
-        this.priority = priority;
     }
 
     /**
