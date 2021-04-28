@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
 /**
- * Represent a task to be executed. The task has a name, timeleft
+ * Represent a task to be executed. The task has a name, time left,
  * a description and a status indicating if done or not.
  */
 
