@@ -14,7 +14,7 @@ public class SubTask extends Task{
      * @param description the description of task
      * @param timeLeft timeleft to be finished
      */
-    public SubTask(String category, String taskName, String description, int timeLeft, String priority) {
-        super(category, taskName, description, timeLeft, priority);
+    public SubTask(String category, String taskName, String description, int timeLeft) {
+        super(category, taskName, description, timeLeft);
     }
 }

@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Main extends Application {
+public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Parent root = null;
+        Parent root;
         try {root = FXMLLoader.load(getClass().getClassLoader().getResource("Main.fxml"));
-            primaryStage.setTitle("Poker Game");
-            primaryStage.setScene(new Scene(root, 600, 300));
+            primaryStage.setTitle("ToDo-App");
+            primaryStage.setScene(new Scene(root, 700, 400));
             primaryStage.show();
 
         } catch (IOException e) {
