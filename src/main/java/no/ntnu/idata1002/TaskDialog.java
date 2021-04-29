@@ -155,9 +155,10 @@ public class TaskDialog extends Dialog<Task> {
         grid.add(new Label("Priority:"), 0, 2);
         grid.add(priorityField, 1, 2);
         grid.add(new Label("Time left:"), 0, 3);
+        grid.add(new Label("days left to deadline"),2,3);
         grid.add(timeLeftField, 1, 3);
         grid.add(new Label("Deadline:"), 0, 4);
-        grid.addRow(5, yearField, monthField, dayField);
+        grid.addRow(5, dayField, monthField, yearField);
 
 
         //Add the grid to the dialog.
@@ -168,15 +169,34 @@ public class TaskDialog extends Dialog<Task> {
         setResultConverter((ButtonType button) -> {
                     Task result = null;
                     if (button == ButtonType.OK) {
-                        if ((yearField.getText() == "") || (monthField.getText() == "") || dayField.getText() == "") {
+                        if ((yearField.getText() == "") || (monthField.getText() == "") || (dayField.getText() == ""))
+                         {
                             yearField.setText("0");
                             monthField.setText("0");
                             dayField.setText("0");
                         }
                         if (mode == Mode.NEW) {
-                            result = new Task(nameField.getText(), descriptionField.getText(), priorityField.getText(),
-                                    Integer.parseInt(yearField.getText()), Integer.parseInt(monthField.getText()),
-                                    Integer.parseInt(dayField.getText()));
+
+                            int year;
+                            int month;
+                            int day;
+
+                            try {
+                                year = Integer.parseInt(yearField.getText());
+                                month = Integer.parseInt(monthField.getText());
+                                day = Integer.parseInt(dayField.getText());
+                            }
+                            catch (NumberFormatException e) {
+                                year = 0;
+                                month = 0;
+                                day = 0;
+                            }
+
+
+                                result = new Task(nameField.getText(), descriptionField.getText(), priorityField.getText(),
+                                        year, month, day);
+
+
 
                         } else if (mode == Mode.EDIT) {
                             existingTask.setDescription(descriptionField.getText());

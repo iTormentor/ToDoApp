@@ -18,8 +18,11 @@ public class Task {
     private String priority;
     private LocalDate deadLine; // How much time left to do task
     private long timeLeft = 0;
+    private int year;
+    private int month;
+    private int day;
 
-    private boolean done;
+
 
 
     /**
@@ -36,24 +39,36 @@ public class Task {
         setTaskName(taskName);
         setDescription(description);
         setPriority(priority);
-        this.done = false;
         setDeadLine(year, month, day);
+        setYear(year);
+        setMonth(month);
+        setDay(month);
 
     }
 
     /**
      * Default constructor. Creates an instance of Task.
      * Sets the fields to empty strings to avoid NullPointerException.
+     * @param category
+     * @param taskName
+     * @param description
+     * @param timeLeft
      */
-    public Task() {
-        //this.setCategory(""); -- Category moved to Project
+
+    public Task(String category, String taskName, String description, int timeLeft) {
         this.setTaskName("Unnamed task");
-        this.setDescription("");
+        this.setDescription("N/A");
         this.deadLine = LocalDate.now();
-        this.done = false;
+        this.priority ="N/A";
+        this.year = 0;
+        this.month = 0;
+        this.day = 0;
         updateTimeLeft();
 
     }
+
+
+
 
     /**
      * Returns the name of task.
@@ -81,6 +96,7 @@ public class Task {
     public long getTimeLeft() {
         return deadLine.until(LocalDate.now(), ChronoUnit.DAYS);
     }
+
     public String getTimeLeftUntilDeadline() {
         return deadLine.toString();
     }
@@ -135,7 +151,7 @@ public class Task {
         try {
             this.description = description;
         } catch (Exception e) {
-            this.description = "";
+            this.description = "No description added";
         }
     }
 
@@ -148,17 +164,47 @@ public class Task {
         try {
             this.priority = priority;
         } catch(Exception e) {
-            this.priority = "";
+            this.priority = "No priority added";
         }
     }
 
     /**
-     * Returns <code>true</code> if the task has been done.
+     * Sets the priority.
      *
-     * @return <code>true</code> if the task has been done.
+     * @param month the month
      */
-    public boolean isDone() {
-        return this.done;
+    public void setMonth(int month) {
+        try {
+            this.month = month;
+        } catch(Exception e) {
+            this.month = 0;
+        }
+    }
+
+    /**
+     * Sets the priority.
+     *
+     * @param year the description of the task
+     */
+    public void setYear(int year) {
+        try {
+            this.year = year;
+        } catch(Exception e) {
+            this.year = 0;
+        }
+    }
+
+    /**
+     * Sets the priority.
+     *
+     * @param day the description of the task
+     */
+    public void setDay(int day) {
+        try {
+            this.day = day;
+        } catch(Exception e) {
+            this.day = 0;
+        }
     }
 
     @Override

@@ -34,6 +34,15 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
+                    <!--
+                    Tillegg for JLink
+                    -->
+                    <release>${maven.compiler.target}</release>
+                    <jlinkImageName>ToDoAppLauncher</jlinkImageName>
+                    <launcher>launcher</launcher>
+                    <!--
+                    Main-klassen i prosjektet ditt
+                    -->
                     <mainClass>no.ntnu.idata1002.MainApp</mainClass>
                 </configuration>
             </plugin>

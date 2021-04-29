@@ -43,7 +43,6 @@ public class MainController implements Initializable {
 
         //Creates the lists needed.
         this.issueBoard = new IssueBoard("My TODO-APP");
-        issueBoard.addTask(new Task());
         this.todoTasksObsList.addAll(issueBoard.getTodoTasks());
         this.doingTasksObsList.addAll(issueBoard.getOngoingTasks());
         this.doneTasksObsList.addAll(issueBoard.getFinishedTasks());
@@ -192,12 +191,6 @@ public class MainController implements Initializable {
 
         }
         this.updateLists();
-    }
-
-    public void doGetLists(ActionEvent actionEvent) {
-        System.out.println(this.issueBoard.getTodoTasks());
-        System.out.println(this.issueBoard.getOngoingTasks());
-        System.out.println(this.issueBoard.getFinishedTasks());
     }
 
     /**
