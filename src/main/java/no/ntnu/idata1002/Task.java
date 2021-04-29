@@ -22,7 +22,7 @@ public class Task {
     private int month;
     private int day;
 
-    private boolean done;
+
 
 
     /**
@@ -49,8 +49,13 @@ public class Task {
     /**
      * Default constructor. Creates an instance of Task.
      * Sets the fields to empty strings to avoid NullPointerException.
+     * @param category
+     * @param taskName
+     * @param description
+     * @param timeLeft
      */
-    public Task() {
+
+    public Task(String category, String taskName, String description, int timeLeft) {
         this.setTaskName("Unnamed task");
         this.setDescription("N/A");
         this.deadLine = LocalDate.now();
@@ -61,6 +66,9 @@ public class Task {
         updateTimeLeft();
 
     }
+
+
+
 
     /**
      * Returns the name of task.

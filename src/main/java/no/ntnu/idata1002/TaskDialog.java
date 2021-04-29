@@ -155,6 +155,7 @@ public class TaskDialog extends Dialog<Task> {
         grid.add(new Label("Priority:"), 0, 2);
         grid.add(priorityField, 1, 2);
         grid.add(new Label("Time left:"), 0, 3);
+        grid.add(new Label("days left to deadline"),2,3);
         grid.add(timeLeftField, 1, 3);
         grid.add(new Label("Deadline:"), 0, 4);
         grid.addRow(5, dayField, monthField, yearField);

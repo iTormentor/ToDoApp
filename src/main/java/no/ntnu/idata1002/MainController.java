@@ -193,12 +193,6 @@ public class MainController implements Initializable {
         this.updateLists();
     }
 
-    public void doGetLists(ActionEvent actionEvent) {
-        System.out.println(this.issueBoard.getTodoTasks());
-        System.out.println(this.issueBoard.getOngoingTasks());
-        System.out.println(this.issueBoard.getFinishedTasks());
-    }
-
     /**
      * Edit the selected task.
      *
