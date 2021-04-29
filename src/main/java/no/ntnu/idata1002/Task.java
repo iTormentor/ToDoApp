@@ -44,8 +44,12 @@ public class Task {
     /**
      * Default constructor. Creates an instance of Task.
      * Sets the fields to empty strings to avoid NullPointerException.
+     * @param category
+     * @param taskName
+     * @param description
+     * @param timeLeft
      */
-    public Task() {
+    public Task(String category, String taskName, String description, int timeLeft) {
         //this.setCategory(""); -- Category moved to Project
         this.setTaskName("Unnamed task");
         this.setDescription("");
@@ -54,6 +58,9 @@ public class Task {
         updateTimeLeft();
 
     }
+
+
+
 
     /**
      * Returns the name of task.
