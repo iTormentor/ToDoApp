@@ -1,16 +1,13 @@
-image: node:4.2.2
-
+# This file is a template, and might need editing before it works on your project.
+# Full project: https://gitlab.com/pages/plain-html
 pages:
-  cache:
-    paths:
-    - node_modules/
-
+  stage: deploy
   script:
-  - npm update
-  - npm install -g brunch
-  - brunch build --production
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
   artifacts:
     paths:
-    - public
-  only:
-  - master
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
