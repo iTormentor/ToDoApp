@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"no.ntnu.idata1002","l":"no.ntnu.idata1002"}];updateSearchResults();
