@@ -1,12 +1,16 @@
-image: alpine:latest
+image: node:4.2.2
 
 pages:
-  stage: deploy
+  cache:
+    paths:
+    - node_modules/
+
   script:
-  - echo 'Nothing to do...'
+  - npm update
+  - npm install -g brunch
+  - brunch build --production
   artifacts:
     paths:
     - public
-    expire_in: 1 day
   only:
   - master
