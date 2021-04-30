@@ -7,7 +7,8 @@ import java.util.Iterator;
 
 
 /**
- * All existing projects should exist in the ToDoMain List over existing projects
+ * Only contains the lists todoTasks, ongoingTasks and finishedTasks
+ * and various methods for handling tasks
  */
 public class IssueBoard extends Project{
 

@@ -2,6 +2,12 @@ package no.ntnu.idata1002;
 
 import java.util.List;
 
+/**
+ * Abstract class.
+ *
+ * Extends IssueBoard.
+ * Exists for easier further development of the application
+ */
 public abstract class Project {
 
     private String projectName;

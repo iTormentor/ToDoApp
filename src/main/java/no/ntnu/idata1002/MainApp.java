@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Responsible for launching the application
+ */
+
 public class MainApp extends Application {
 
     @Override

@@ -15,8 +15,16 @@ import no.ntnu.idata1002.Project;
 import java.io.IOException;
 import java.util.Date;
 
+
+/**
+ * Responsible for the Task Dialog window that occurs
+ * when you press, New task, Edit Task or View Task
+ */
 public class TaskDialog extends Dialog<Task> {
 
+    /**
+     * Used to distinguish which button press that was made
+     */
     public enum Mode {
         NEW, EDIT, VIEW
     }

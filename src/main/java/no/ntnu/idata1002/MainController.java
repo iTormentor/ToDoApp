@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Responsible for controlling the application
+ */
+
 public class MainController implements Initializable {
     @FXML
     private ResourceBundle resources;
